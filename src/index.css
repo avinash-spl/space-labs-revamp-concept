@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+  /* ==========================================================================
+     SOPHISTICATED WARM-NEUTRAL LIGHT THEME DESIGN SYSTEM
+     Inspired by world-class hardware & tech engineering (Linear, Apple, Stripe)
+     Specially calibrated for zero eye strain, soft visual depth, and fluid feel.
+     ========================================================================== */
+
+  /* Neutral Background Scale (Warm Sand, Alabaster & Soft Zinc - No Harsh Glare) */
+  --bg-base: #fafaf9;          /* Warm Alabaster canvas: Calming, natural, zero eye fatigue */
+  --bg-surface: #ffffff;       /* Pure Elevated Surface for cards & interactive panels */
+  --bg-subtle: #f4f4f2;        /* Alternate section background: Soft warm pebble */
+  --bg-muted: #eaeae6;         /* Secondary pill containers, disabled states, badges */
+  --bg-card-hover: #ffffff;    /* Card hover background */
+
+  /* Primary Accent: Refined Industrial Amber / Terracotta */
+  --primary: #ea580c;          /* Warm Terracotta / Safety Amber: Confident, tasteful, high contrast */
+  --primary-hover: #c2410c;    /* Deepened Amber for hover */
+  --primary-active: #9a3412;   /* Deep Industrial Terracotta */
+  --primary-subtle: rgba(234, 88, 12, 0.08); /* Soft tinted wash for active tabs & pills */
+  --primary-border: rgba(234, 88, 12, 0.22); /* Soft highlight borders */
+  --primary-text: #c2410c;     /* High-legibility amber text */
+
+  /* Supporting Dual-Tone Accents */
+  --accent-cyan: #0284c7;      /* Precise Sky Blue for sub-millimeter measurements */
+  --accent-cyan-subtle: rgba(2, 132, 199, 0.08);
+  --accent-cyan-border: rgba(2, 132, 199, 0.2);
+  
+  --brand-navy: #0f172a;       /* Deep Slate Navy for titles & primary headings */
+  --brand-steel: #334155;      /* Supporting headers & subtitles */
+
+  /* Semantic System (Calibrated for eye comfort & WCAG AA contrast) */
+  --semantic-success: #059669;        /* Emerald 600: System Active & RDSO Calibrated */
+  --semantic-success-bg: rgba(5, 150, 105, 0.08);
+  --semantic-success-border: rgba(5, 150, 105, 0.2);
+  
+  --semantic-warning: #d97706;        /* Amber 600: Bearing & Thermal Warnings */
+  --semantic-warning-bg: rgba(217, 119, 6, 0.08);
+  --semantic-warning-border: rgba(217, 119, 6, 0.22);
+
+  --semantic-error: #dc2626;          /* Red 600: Critical Hot Box / Axle Alert */
+  --semantic-error-bg: rgba(220, 38, 38, 0.08);
+  --semantic-error-border: rgba(220, 38, 38, 0.2);
+
+  --semantic-info: #0284c7;           /* Sky 600: Informational specs */
+  --semantic-info-bg: rgba(2, 132, 199, 0.08);
+  --semantic-info-border: rgba(2, 132, 199, 0.2);
+
+  /* Text Hierarchy (High-Legibility Soft Slate on Warm Canvas) */
+  --text-primary: #0f172a;     /* Deep Slate Navy: Crisp, readable without pure-black harshness */
+  --text-secondary: #475569;   /* Slate 600: 7:1 contrast for comfortable long-form reading */
+  --text-muted: #64748b;       /* Slate 500: Clear telemetry labels & secondary metadata */
+  --text-disabled: #94a3b8;    /* Slate 400 */
+  --text-inverse: #ffffff;     /* Crisp white text for primary action buttons & dark badges */
+
+  /* Delicately Layered Borders */
+  --border-subtle: rgba(15, 23, 42, 0.07); /* Ultra-clean subtle dividers */
+  --border-medium: rgba(15, 23, 42, 0.12); /* Interactive borders & input outlines */
+  --border-focus: #ea580c;                 /* Active orange focus outline */
+
+  /* Apple / Stripe-Grade Diffused Multi-Layer Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 6px -1px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 10px 24px -4px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 8px 16px -4px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 2px 14px -2px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.06);
+  --shadow-hover: 0 22px 42px -10px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(234, 88, 12, 0.28);
+  --shadow-dropdown: 0 20px 45px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.08);
+
+  /* Typography Scale */
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Modern Generous Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+/* Reset & Base Standards */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(234, 88, 12, 0.04) 0%, transparent 50%),
+    linear-gradient(to bottom, #fafaf9, #f7f7f5);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Selection Color */
+::selection {
+  background-color: rgba(234, 88, 12, 0.16);
+  color: #9a3412;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.18);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 88, 12, 0.4);
+}

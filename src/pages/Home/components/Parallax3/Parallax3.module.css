@@ -1,0 +1,89 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background-image: url(./para4.jpg);
+  background-size: cover;
+  background-position: center 10%;
+  position: relative;
+  border-radius: 20px;
+  top: -50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Non-Safari browsers use fixed attachment */
+@supports not (-webkit-touch-callout: none) {
+  .container {
+    background-attachment: fixed;
+    transition: background-position 1s ease;
+  }
+}
+
+/* Safari-specific styles */
+.safariContainer {
+  background-attachment: scroll !important;
+  background-repeat: no-repeat;
+  /* Safari often makes background images larger, so we force it here */
+  background-size: 100% auto !important;
+  transition: background-position 0.1s ease-out;
+}
+
+/* Mobile styles for all browsers */
+@media screen and (max-width: 600px) {
+  .container {
+    background-position: 50% 10%;
+  }
+
+  .safariContainer {
+    /* For mobile Safari */
+    background-size: auto 100vh !important;
+    background-position-x: center !important;
+  }
+}
+
+/* Modern browsers with scroll-timeline support */
+@supports (animation-timeline: scroll()) {
+  /* Only apply to non-Safari browsers */
+  @supports not (-webkit-touch-callout: none) {
+    .container {
+      animation-timeline: view(block 30% 10%);
+      animation-name: parallaxEffect;
+      animation-fill-mode: both;
+      animation-duration: 2s; /* Required for Firefox */
+      animation-timing-function: linear;
+    }
+
+    @keyframes parallaxEffect {
+      0% {
+        background-position: center 40%;
+      }
+      80% {
+        background-position: center 20%;
+      }
+      to {
+        background-position: center 10%;
+      }
+    }
+
+    /* Mobile version of the animation */
+    @media screen and (max-width: 600px) {
+      .container {
+        animation-timeline: view(block 30% 10%);
+        animation-name: parallaxEffectMobile;
+      }
+
+      @keyframes parallaxEffectMobile {
+        0% {
+          background-position: 50% 40%;
+        }
+        80% {
+          background-position: 50% 20%;
+        }
+        to {
+          background-position: 50% 10%;
+        }
+      }
+    }
+  }
+}

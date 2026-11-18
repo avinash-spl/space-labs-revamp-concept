@@ -1,0 +1,146 @@
+.sectionWrapper {
+  position: relative;
+  background-color: var(--bg-subtle, #f4f4f2);
+  padding: 90px 24px;
+  border-bottom: 1px solid var(--border-subtle, rgba(15, 23, 42, 0.07));
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 28px;
+  padding: 56px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 3px;
+  background: #ea580c;
+  border-radius: 0 0 4px 4px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  margin-bottom: 20px;
+}
+
+.tagIcon {
+  color: #ea580c;
+}
+
+.headline {
+  font-family: var(--font-display, sans-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 18px;
+  line-height: 1.25;
+}
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: 2.8rem;
+  }
+}
+
+.missionText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.6;
+  max-width: 860px;
+  margin: 0 auto 16px;
+}
+
+.missionText strong {
+  color: #ea580c;
+}
+
+.subText {
+  font-size: 1.02rem;
+  color: #475569;
+  line-height: 1.7;
+  max-width: 820px;
+  margin: 0 auto 48px;
+}
+
+.subText strong {
+  color: #0f172a;
+}
+
+/* Pillars */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .pillarsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pillar {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  padding: 26px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pillar:hover {
+  border-color: rgba(234, 88, 12, 0.3);
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.pillarStep {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ea580c;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.pillarTitle {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.pillarDesc {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.6;
+}

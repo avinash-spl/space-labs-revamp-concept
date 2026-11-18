@@ -1,0 +1,88 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background-image: url(./para2.jpg);
+  background-size: cover;
+  background-position: 10% 10%;
+  position: relative;
+  border-radius: 20px;
+  top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Non-Safari browsers use fixed attachment */
+@supports not (-webkit-touch-callout: none) {
+  .container {
+    background-attachment: fixed;
+    transition: background-position 1s ease;
+  }
+}
+
+/* Safari-specific styles */
+.safariContainer {
+  background-attachment: scroll !important;
+  background-repeat: no-repeat;
+  background-size: 130% auto !important; /* Slightly larger to allow horizontal movement */
+  transition: background-position 0.1s ease-out;
+}
+
+/* Mobile styles for all browsers */
+@media screen and (max-width: 600px) {
+  .container {
+    background-position: 30% 10%;
+  }
+
+  .safariContainer {
+    /* For mobile Safari */
+    background-size: auto 100vh !important;
+  }
+}
+
+/* Modern browsers with scroll-timeline support */
+@supports (animation-timeline: scroll()) {
+  /* Only apply to non-Safari browsers */
+  @supports not (-webkit-touch-callout: none) {
+    .container {
+      animation-timeline: view(block 30% 10%);
+      animation-name: parallaxEffect;
+      animation-fill-mode: both;
+      animation-duration: 2s; /* Required for Firefox */
+      animation-timing-function: linear;
+    }
+
+    @keyframes parallaxEffect {
+      0% {
+        background-position: 10% 40%;
+      }
+      80% {
+        background-position: 10% 20%;
+      }
+      to {
+        background-position: 10% 10%;
+      }
+    }
+
+    /* Mobile version of the animation */
+    @media screen and (max-width: 600px) {
+      .container {
+        animation-timeline: view(block 30% 10%);
+        animation-name: parallaxEffectMobile;
+      }
+
+      @keyframes parallaxEffectMobile {
+        0% {
+          background-position: 0% 40%;
+        }
+        80% {
+          background-position: 20% 20%;
+        }
+        to {
+          background-position: 30% 10%;
+        }
+      }
+    }
+  }
+}

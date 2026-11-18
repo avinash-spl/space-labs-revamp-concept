@@ -1,0 +1,14 @@
+.Mui-selected {
+  color: var(--primary, #ea580c) !important;
+  border-bottom: 2px solid var(--primary, #ea580c) !important;
+}
+.MuiTabs-indicator {
+  background-color: var(--primary, #ea580c) !important;
+}
+a {
+  color: var(--primary, #ea580c);
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--primary-hover, #c2410c);
+}

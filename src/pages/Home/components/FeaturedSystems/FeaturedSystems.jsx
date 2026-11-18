@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./FeaturedSystems.module.css";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Cpu,
   Activity,
@@ -176,14 +177,25 @@ const FeaturedSystems = () => {
         <div className={styles.tabNav}>
           {SYSTEMS.map((sys, idx) => {
             const TabIcon = sys.icon;
+            const isActive = activeTab === idx;
             return (
               <button
                 key={sys.id}
                 onClick={() => setActiveTab(idx)}
-                className={`${styles.tabBtn} ${activeTab === idx ? styles.activeTabBtn : ""}`}
+                className={`${styles.tabBtn} ${isActive ? styles.activeTabBtn : ""}`}
               >
-                <TabIcon size={16} />
-                <span className={styles.tabBtnText}>{sys.tag.split("•")[1].trim()}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTabPill"
+                    className={styles.tabIndicator}
+                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                  />
+                )}
+                {!isActive && <div className={styles.tabBtnBg} />}
+                <span className={styles.tabBtnContent}>
+                  <TabIcon size={16} />
+                  <span className={styles.tabBtnText}>{sys.tag.split("•")[1].trim()}</span>
+                </span>
               </button>
             );
           })}
@@ -191,86 +203,105 @@ const FeaturedSystems = () => {
 
         {/* System Detail Showcase Card */}
         <div className={styles.showcaseCard}>
-          <div className={styles.cardGrid}>
-            {/* Left Info Column */}
-            <div className={styles.infoCol}>
-              <div className={styles.sysTagBox}>
-                <span className={styles.sysTag}>{current.tag}</span>
-              </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className={styles.cardGrid}
+            >
+              {/* Left Info Column */}
+              <div className={styles.infoCol}>
+                <div className={styles.sysTagBox}>
+                  <span className={styles.sysTag}>{current.tag}</span>
+                </div>
 
-              <h3 className={styles.sysTitle}>{current.title}</h3>
-              <p className={styles.sysSubtitle}>{current.subtitle}</p>
-              <p className={styles.sysDesc}>{current.description}</p>
+                <h3 className={styles.sysTitle}>{current.title}</h3>
+                <p className={styles.sysSubtitle}>{current.subtitle}</p>
+                <p className={styles.sysDesc}>{current.description}</p>
 
-              {/* Metrics Grid */}
-              <div className={styles.metricsGrid}>
-                {current.metrics.map((m, i) => (
-                  <div key={i} className={styles.metricItem}>
-                    <div className={styles.metricValue}>{m.value}</div>
-                    <div className={styles.metricLabel}>{m.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Parameter Badges */}
-              <div className={styles.paramsBox}>
-                <div className={styles.paramsTitle}>MEASURED PARAMETERS & CAPABILITIES:</div>
-                <div className={styles.paramsList}>
-                  {current.parameters.map((p, i) => (
-                    <span key={i} className={styles.paramChip}>
-                      <Check size={12} className={styles.checkIcon} />
-                      <span>{p}</span>
-                    </span>
+                {/* Metrics Grid */}
+                <div className={styles.metricsGrid}>
+                  {current.metrics.map((m, i) => (
+                    <motion.div
+                      key={i}
+                      className={styles.metricItem}
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                    >
+                      <div className={styles.metricValue}>{m.value}</div>
+                      <div className={styles.metricLabel}>{m.label}</div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className={styles.actionRow}>
-                <Link to={current.path} className={styles.fullSpecBtn}>
-                  <span>DETAILED SPECIFICATIONS</span>
-                  <ArrowRight size={15} />
-                </Link>
+                {/* Parameter Badges */}
+                <div className={styles.paramsBox}>
+                  <div className={styles.paramsTitle}>MEASURED PARAMETERS & CAPABILITIES:</div>
+                  <div className={styles.paramsList}>
+                    {current.parameters.map((p, i) => (
+                      <motion.span
+                        key={i}
+                        className={styles.paramChip}
+                        whileHover={{ scale: 1.03, y: -1 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      >
+                        <Check size={12} className={styles.checkIcon} />
+                        <span>{p}</span>
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
 
-                <a
-                  href={current.brochure}
-                  download={`${current.id}_brochure.pdf`}
-                  className={styles.brochureBtn}
-                >
-                  <Download size={15} />
-                  <span>DOWNLOAD BROCHURE</span>
-                </a>
-              </div>
-            </div>
+                {/* Action Buttons */}
+                <div className={styles.actionRow}>
+                  <Link to={current.path} className={styles.fullSpecBtn}>
+                    <span>DETAILED SPECIFICATIONS</span>
+                    <ArrowRight size={15} />
+                  </Link>
 
-            {/* Right Media Column */}
-            <div className={styles.mediaCol}>
-              <div className={styles.imageFrame}>
-                <img
-                  src={current.image}
-                  alt={current.title}
-                  className={styles.sysImage}
-                />
-                <div className={styles.imageBorder}></div>
-                <div className={styles.imageTag}>
-                  <span>FIELD DEPLOYED HARDWARE</span>
+                  <a
+                    href={current.brochure}
+                    download={`${current.id}_brochure.pdf`}
+                    className={styles.brochureBtn}
+                  >
+                    <Download size={15} />
+                    <span>DOWNLOAD BROCHURE</span>
+                  </a>
                 </div>
               </div>
 
-              {current.diagram && (
-                <div className={styles.diagramPreview}>
+              {/* Right Media Column */}
+              <div className={styles.mediaCol}>
+                <div className={styles.imageFrame}>
                   <img
-                    src={current.diagram}
-                    alt="System Measurement Schematic"
-                    className={styles.diagramImage}
+                    src={current.image}
+                    alt={current.title}
+                    className={styles.sysImage}
                   />
-                  <span className={styles.diagramLabel}>
-                    Sub-millimeter Optical Measurement Schematic
-                  </span>
+                  <div className={styles.imageBorder}></div>
+                  <div className={styles.imageTag}>
+                    <span>FIELD DEPLOYED HARDWARE</span>
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
+
+                {current.diagram && (
+                  <div className={styles.diagramPreview}>
+                    <img
+                      src={current.diagram}
+                      alt="System Measurement Schematic"
+                      className={styles.diagramImage}
+                    />
+                    <span className={styles.diagramLabel}>
+                      Sub-millimeter Optical Measurement Schematic
+                    </span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Bottom Catalog Link */}

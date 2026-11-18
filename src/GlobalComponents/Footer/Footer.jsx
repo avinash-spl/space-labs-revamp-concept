@@ -19,11 +19,13 @@ const Footer = () => {
           {/* Brand & Mission Column */}
           <div className={styles.brandCol}>
             <Link to="/" className={styles.logoBox}>
-              <img
-                src="/assets/logo.png"
-                alt="Space Labs Logo"
-                className={styles.logoImg}
-              />
+              <div className={styles.logoPod}>
+                <img
+                  src="/assets/logo-dark.png"
+                  alt="Space Labs Logo"
+                  className={styles.logoImg}
+                />
+              </div>
               <div className={styles.brandTitle}>
                 SPACE<span className={styles.brandAccent}>.LABS</span>
               </div>

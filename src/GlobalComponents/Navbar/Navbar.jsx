@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
   Menu as MenuIcon,
@@ -119,12 +120,18 @@ const Navbar = ({ userExists }) => {
               }
             }}
           >
-            <img src="/assets/logo.png" alt="Space Labs" className={styles.logoImg} />
+            <div className={styles.logoPod}>
+              <img
+                src="/assets/logo-dark.png"
+                alt="Space Labs"
+                className={styles.logoImg}
+              />
+            </div>
             <div className={styles.brandText}>
               <span className={styles.brandTitle}>
                 SPACE<span className={styles.brandAccent}>.LABS</span>
               </span>
-              <span className={styles.brandSubtitle}>RAILWAY ENGINEERING</span>
+              <span className={styles.brandSubtitle}>WAYSIDE RAILWAY VISION</span>
             </div>
           </Link>
 
@@ -154,43 +161,51 @@ const Navbar = ({ userExists }) => {
               />
             </button>
 
-            {dropdownOpen && (
-              <div className={styles.dropdownMenu}>
-                <div className={styles.dropdownHeader}>
-                  <ShieldCheck size={14} className={styles.dropdownHeaderIcon} />
-                  <span>AUTONOMOUS RAILWAY INSPECTION SUITE</span>
-                </div>
-                <div className={styles.dropdownGrid}>
-                  {PRODUCTS.map((prod) => {
-                    const IconComponent = prod.icon;
-                    return (
-                      <Link
-                        key={prod.id}
-                        to={prod.path}
-                        className={styles.dropdownItem}
-                        onClick={() => setDropdownOpen(false)}
-                      >
-                        <div className={styles.itemIconBox}>
-                          <IconComponent size={18} />
-                        </div>
-                        <div className={styles.itemContent}>
-                          <div className={styles.itemHeading}>
-                            <span className={styles.itemTag}>{prod.tag}</span>
-                            <span className={styles.itemName}>{prod.name}</span>
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  className={styles.dropdownMenu}
+                >
+                  <div className={styles.dropdownHeader}>
+                    <ShieldCheck size={14} className={styles.dropdownHeaderIcon} />
+                    <span>AUTONOMOUS RAILWAY INSPECTION SUITE</span>
+                  </div>
+                  <div className={styles.dropdownGrid}>
+                    {PRODUCTS.map((prod) => {
+                      const IconComponent = prod.icon;
+                      return (
+                        <Link
+                          key={prod.id}
+                          to={prod.path}
+                          className={styles.dropdownItem}
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          <div className={styles.itemIconBox}>
+                            <IconComponent size={18} />
                           </div>
-                          <p className={styles.itemDesc}>{prod.desc}</p>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-                <div className={styles.dropdownFooter}>
-                  <Link to="/products" className={styles.viewAllLink}>
-                    View Systems Overview & Specifications <ArrowRight size={13} />
-                  </Link>
-                </div>
-              </div>
-            )}
+                          <div className={styles.itemContent}>
+                            <div className={styles.itemHeading}>
+                              <span className={styles.itemTag}>{prod.tag}</span>
+                              <span className={styles.itemName}>{prod.name}</span>
+                            </div>
+                            <p className={styles.itemDesc}>{prod.desc}</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  <div className={styles.dropdownFooter}>
+                    <Link to="/products" className={styles.viewAllLink}>
+                      View Systems Overview & Specifications <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <Link
@@ -262,82 +277,90 @@ const Navbar = ({ userExists }) => {
       </div>
 
       {/* Mobile Drawer */}
-      {isOpen && (
-        <div className={styles.mobileDrawer}>
-          <div className={styles.mobileMenu}>
-            <div className={styles.mobileSectionHeader}>RAILWAY SYSTEMS</div>
-            {PRODUCTS.map((prod) => (
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className={styles.mobileDrawer}
+          >
+            <div className={styles.mobileMenu}>
+              <div className={styles.mobileSectionHeader}>RAILWAY SYSTEMS</div>
+              {PRODUCTS.map((prod) => (
+                <Link
+                  key={prod.id}
+                  to={prod.path}
+                  className={styles.mobileSubItem}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className={styles.mobileTag}>{prod.tag}</span>
+                  <span>{prod.name}</span>
+                </Link>
+              ))}
+
+              <div className={styles.mobileDivider}></div>
+
               <Link
-                key={prod.id}
-                to={prod.path}
-                className={styles.mobileSubItem}
+                to="/#capabilities"
+                className={styles.mobileNavItem}
                 onClick={() => setIsOpen(false)}
               >
-                <span className={styles.mobileTag}>{prod.tag}</span>
-                <span>{prod.name}</span>
+                CAPABILITIES
               </Link>
-            ))}
 
-            <div className={styles.mobileDivider}></div>
+              <Link
+                to="/#team"
+                className={styles.mobileNavItem}
+                onClick={() => setIsOpen(false)}
+              >
+                OUR TEAM
+              </Link>
 
-            <Link
-              to="/#capabilities"
-              className={styles.mobileNavItem}
-              onClick={() => setIsOpen(false)}
-            >
-              CAPABILITIES
-            </Link>
+              <Link
+                to="/careers"
+                className={styles.mobileNavItem}
+                onClick={() => {
+                  setIsOpen(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                CAREERS
+              </Link>
 
-            <Link
-              to="/#team"
-              className={styles.mobileNavItem}
-              onClick={() => setIsOpen(false)}
-            >
-              OUR TEAM
-            </Link>
-
-            <Link
-              to="/careers"
-              className={styles.mobileNavItem}
-              onClick={() => {
-                setIsOpen(false);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
-              CAREERS
-            </Link>
-
-            <Link
-              to="/contact"
-              className={styles.mobileNavItem}
-              onClick={() => {
-                setIsOpen(false);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
-              CONTACT
-            </Link>
-
-            <Link
-              to="/login"
-              className={styles.mobileNavItem}
-              onClick={() => setIsOpen(false)}
-            >
-              ADMIN PORTAL
-            </Link>
-
-            <div className={styles.mobileCtaBox}>
               <Link
                 to="/contact"
-                className={styles.ctaBtnMobile}
+                className={styles.mobileNavItem}
+                onClick={() => {
+                  setIsOpen(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                CONTACT
+              </Link>
+
+              <Link
+                to="/login"
+                className={styles.mobileNavItem}
                 onClick={() => setIsOpen(false)}
               >
-                REQUEST CONSULTATION / RFQ
+                ADMIN PORTAL
               </Link>
+
+              <div className={styles.mobileCtaBox}>
+                <Link
+                  to="/contact"
+                  className={styles.ctaBtnMobile}
+                  onClick={() => setIsOpen(false)}
+                >
+                  REQUEST CONSULTATION / RFQ
+                </Link>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./OurTeam.module.css";
+import { motion } from "framer-motion";
 import { Users, ShieldCheck, Cpu, Briefcase } from "lucide-react";
 import { FaLinkedinIn as Linkedin } from "react-icons/fa6";
 
@@ -30,6 +31,23 @@ const TEAM_MEMBERS = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const OurTeam = () => {
   return (
     <section id="team" className={styles.sectionWrapper}>
@@ -48,9 +66,20 @@ const OurTeam = () => {
         </div>
 
         {/* Team Grid */}
-        <div className={styles.grid}>
+        <motion.div
+          className={styles.grid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           {TEAM_MEMBERS.map((member, index) => (
-            <div key={index} className={styles.card}>
+            <motion.div
+              key={index}
+              className={styles.card}
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { type: "spring", stiffness: 350, damping: 25 } }}
+            >
               <div className={styles.imageBox}>
                 <img
                   src={member.imgURL}
@@ -77,9 +106,9 @@ const OurTeam = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

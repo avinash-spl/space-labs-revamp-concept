@@ -1,5 +1,6 @@
 import React from "react";
 import "./Cards.css";
+import { motion } from "framer-motion";
 import { Target, Leaf, Cpu, HeartHandshake } from "lucide-react";
 
 const PRINCIPLES = [
@@ -37,13 +38,43 @@ const PRINCIPLES = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const FuturisticCards = () => {
   return (
-    <div className="card-container">
+    <motion.div
+      className="card-container"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+    >
       {PRINCIPLES.map((card) => {
         const Icon = card.icon;
         return (
-          <div key={card.id} className="principle-card">
+          <motion.div
+            key={card.id}
+            className="principle-card"
+            variants={cardVariants}
+            whileHover={{ y: -6, transition: { type: "spring", stiffness: 350, damping: 25 } }}
+          >
             <div className="principle-card-top">
               <span className="principle-num">{card.num}</span>
               <div className="principle-icon-box">
@@ -53,10 +84,10 @@ const FuturisticCards = () => {
             <div className="principle-tag">{card.tag}</div>
             <h3 className="principle-title">{card.title}</h3>
             <p className="principle-desc">{card.description}</p>
-          </div>
+          </motion.div>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 

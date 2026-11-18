@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./LifeAt.module.css";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, ArrowUp, CheckCircle2 } from "lucide-react";
 
 const CULTURE_HIGHLIGHTS = [
@@ -21,7 +22,13 @@ const LifeAt = () => {
       <div className={styles.container}>
         <div className={styles.contentGrid}>
           {/* Text Side */}
-          <div className={styles.textBox}>
+          <motion.div
+            className={styles.textBox}
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.tag}>
               <Sparkles size={14} className={styles.tagIcon} />
               <span>STUDIO CULTURE</span>
@@ -56,10 +63,16 @@ const LifeAt = () => {
                 <ArrowRight size={16} />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Photo Side */}
-          <div className={styles.imageColumn}>
+          <motion.div
+            className={styles.imageColumn}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.imageCard}>
               <img
                 src="/assets/team/Office_Grp_New.png"
@@ -72,7 +85,7 @@ const LifeAt = () => {
                 <span className={styles.captionTitle}>Research & Development Lab</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Back to top button */}

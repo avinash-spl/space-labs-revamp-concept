@@ -13,7 +13,8 @@ import {
   Plane,
   ArrowRight,
   ShieldCheck,
-  UserCheck
+  UserCheck,
+  Mail
 } from "lucide-react";
 
 const PRODUCTS = [
@@ -238,18 +239,6 @@ const Navbar = ({ userExists }) => {
           >
             CAREERS
           </Link>
-
-          <Link
-            to="/contact"
-            className={`${styles.navItem} ${location.pathname === "/contact" ? styles.activeNavItem : ""}`}
-            onClick={() => {
-              if (location.pathname === "/contact") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
-          >
-            CONTACT
-          </Link>
         </nav>
 
         {/* CTA Actions */}
@@ -265,8 +254,17 @@ const Navbar = ({ userExists }) => {
             </Link>
           )}
 
-          <Link to="/contact" className={styles.ctaBtn}>
-            <span>INQUIRE / RFQ</span>
+          <Link
+            to="/contact"
+            className={`${styles.ctaBtn} ${location.pathname === "/contact" ? styles.activeCtaBtn : ""}`}
+            onClick={() => {
+              if (location.pathname === "/contact") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+          >
+            <Mail size={15} />
+            <span>CONTACT US</span>
             <ArrowRight size={14} />
           </Link>
 
@@ -340,17 +338,6 @@ const Navbar = ({ userExists }) => {
               </Link>
 
               <Link
-                to="/contact"
-                className={styles.mobileNavItem}
-                onClick={() => {
-                  setIsOpen(false);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-              >
-                CONTACT
-              </Link>
-
-              <Link
                 to="/login"
                 className={styles.mobileNavItem}
                 onClick={() => setIsOpen(false)}
@@ -364,7 +351,8 @@ const Navbar = ({ userExists }) => {
                   className={styles.ctaBtnMobile}
                   onClick={() => setIsOpen(false)}
                 >
-                  REQUEST CONSULTATION / RFQ
+                  <Mail size={16} />
+                  <span>CONTACT US / RFQ</span>
                 </Link>
               </div>
             </div>

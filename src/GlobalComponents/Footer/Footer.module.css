@@ -132,12 +132,13 @@
 .linkList li a {
   font-size: 0.9rem;
   color: #475569;
-  transition: all 0.2s ease;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
 }
 
 .linkList li a:hover {
   color: #ea580c;
-  padding-left: 4px;
+  transform: translateX(4px);
 }
 
 /* Contact Column */

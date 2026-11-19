@@ -73,11 +73,12 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 32, scale: 0.985 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -119,8 +120,8 @@ const HomePillars = () => {
                 className={styles.card}
                 variants={cardVariants}
                 whileHover={{
-                  y: -5,
-                  boxShadow: "0 16px 36px rgba(15, 23, 42, 0.09)",
+                  y: -1.5,
+                  boxShadow: "0 8px 22px rgba(15, 23, 42, 0.06)",
                   transition: { duration: 0.2 },
                 }}
               >

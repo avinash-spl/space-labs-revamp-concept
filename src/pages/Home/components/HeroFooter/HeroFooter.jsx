@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./HeroFooter.module.css";
-import { Wrench, Eye, Activity, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Wrench, Eye, Activity, ShieldCheck } from "lucide-react";
 
 const ARCHITECTURE_PILLARS = [
   {
@@ -33,12 +34,38 @@ const ARCHITECTURE_PILLARS = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 32, scale: 0.985 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const HeroFooter = () => {
   return (
     <section id="who-we-are" className={styles.sectionWrapper}>
       <div className={styles.container}>
         {/* Section Header */}
-        <div className={styles.headerBox}>
+        <motion.div
+          className={styles.headerBox}
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5 }}
+        >
           <div className={styles.tag}>
             <ShieldCheck size={14} className={styles.tagIcon} />
             <span>TRACK-FRIENDLY WAYSIDE ARCHITECTURE</span>
@@ -49,18 +76,37 @@ const HeroFooter = () => {
           <p className={styles.subtitle}>
             Eliminating heavy civil disruption, proprietary hardware silos, and operational bottlenecks across mainline networks.
           </p>
-        </div>
+        </motion.div>
 
         {/* 4 Architecture Pillars Grid */}
-        <div className={styles.grid}>
+        <motion.div
+          className={styles.grid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           {ARCHITECTURE_PILLARS.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
-              <div key={idx} className={styles.card}>
+              <motion.div
+                key={idx}
+                className={styles.card}
+                variants={cardVariants}
+                whileHover={{
+                  y: -1.5,
+                  boxShadow: "0 10px 24px rgba(15, 23, 42, 0.06)",
+                  transition: { duration: 0.2 },
+                }}
+              >
                 <div className={styles.cardHeader}>
-                  <div className={styles.iconCircle}>
+                  <motion.div
+                    className={styles.iconCircle}
+                    whileHover={{ scale: 1.08, rotate: 4 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  >
                     <Icon size={22} />
-                  </div>
+                  </motion.div>
                   <span className={styles.cardIndex}>{pillar.index}</span>
                 </div>
 
@@ -70,10 +116,10 @@ const HeroFooter = () => {
                 <div className={styles.cardHighlight}>
                   <span className={styles.highlightBadge}>{pillar.highlight}</span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

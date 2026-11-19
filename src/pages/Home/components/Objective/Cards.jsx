@@ -49,11 +49,12 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 30, scale: 0.985 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    scale: 1,
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -73,7 +74,7 @@ const FuturisticCards = () => {
             key={card.id}
             className="principle-card"
             variants={cardVariants}
-            whileHover={{ y: -6, transition: { type: "spring", stiffness: 350, damping: 25 } }}
+            whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
           >
             <div className="principle-card-top">
               <span className="principle-num">{card.num}</span>

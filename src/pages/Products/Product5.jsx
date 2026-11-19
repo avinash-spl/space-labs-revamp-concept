@@ -183,9 +183,9 @@ const Product5 = () => {
         <motion.div
           ref={featRef}
           className={styles.featuresContainer}
-          initial={{ opacity: 0, y: 24 }}
-          animate={featInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 28, scale: 0.985 }}
+          animate={featInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className={styles.featuresContent}>
             <div className={styles.sectionHeader}>
@@ -198,7 +198,7 @@ const Product5 = () => {
                 <motion.div
                   key={index}
                   className={styles.featureItem}
-                  whileHover={{ y: -2, scale: 1.01 }}
+                  whileHover={{ y: -1 }}
                   transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 >
                   <div className={styles.featureIconBox}>
@@ -264,9 +264,9 @@ const Product5 = () => {
         <motion.div
           ref={specsRef}
           className={styles.measurementsContainer}
-          initial={{ opacity: 0, y: 24 }}
-          animate={specsInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 28, scale: 0.985 }}
+          animate={specsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className={styles.measurementContent}>
             <div className={styles.sectionHeader}>
@@ -279,7 +279,7 @@ const Product5 = () => {
                 <motion.div
                   key={name}
                   className={styles.measurementCard}
-                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileHover={{ y: -1.5 }}
                   transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 >
                   <span className={styles.measurementTitle}>{name}</span>

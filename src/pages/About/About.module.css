@@ -142,17 +142,34 @@
 .methodologyCard {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 28px 24px;
+  border-radius: 16px;
+  padding: 32px 28px;
   position: relative;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.methodologyCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.methodologyCard:hover::before {
+  opacity: 1;
 }
 
 .methodologyCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
-  border-color: #cbd5e1;
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+  border-color: rgba(234, 88, 12, 0.3);
 }
 
 .phaseBadge {
@@ -259,9 +276,16 @@
 .teamCard {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.teamCard:hover {
+  border-color: rgba(234, 88, 12, 0.3);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 .avatarWrapper {
@@ -269,6 +293,7 @@
   height: 240px;
   background-color: #e2e8f0;
   overflow: hidden;
+  position: relative;
 }
 
 .avatarImg {
@@ -276,6 +301,11 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.teamCard:hover .avatarImg {
+  transform: scale(1.05);
 }
 
 .avatarFallback {

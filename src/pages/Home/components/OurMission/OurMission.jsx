@@ -35,7 +35,7 @@ const OurMission = () => {
           <div className={styles.pillarsGrid}>
             <motion.div
               className={styles.pillar}
-              whileHover={{ y: -4, transition: { type: "spring", stiffness: 350 } }}
+              whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
             >
               <div className={styles.pillarStep}>PHASE 01</div>
               <h4 className={styles.pillarTitle}>Hypothesize</h4>
@@ -45,7 +45,7 @@ const OurMission = () => {
             </motion.div>
             <motion.div
               className={styles.pillar}
-              whileHover={{ y: -4, transition: { type: "spring", stiffness: 350 } }}
+              whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
             >
               <div className={styles.pillarStep}>PHASE 02</div>
               <h4 className={styles.pillarTitle}>Experiment</h4>
@@ -55,7 +55,7 @@ const OurMission = () => {
             </motion.div>
             <motion.div
               className={styles.pillar}
-              whileHover={{ y: -4, transition: { type: "spring", stiffness: 350 } }}
+              whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
             >
               <div className={styles.pillarStep}>PHASE 03</div>
               <h4 className={styles.pillarTitle}>Validate</h4>

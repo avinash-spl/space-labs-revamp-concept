@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import styles from "./ContactForm.module.css";
 import {
   Mail,
@@ -59,7 +60,12 @@ const ContactForm = () => {
 
         <div className={styles.contentGrid}>
           {/* Left Column: Contact Info & Reliability Metrics */}
-          <div className={styles.infoColumn}>
+          <motion.div
+            className={styles.infoColumn}
+            initial={{ opacity: 0, y: 28, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.infoCard}>
               <h3 className={styles.infoTitle}>Direct Contact Channels</h3>
 
@@ -132,10 +138,15 @@ const ContactForm = () => {
                 </li>
               </ul>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Modern RFQ Form */}
-          <div className={styles.formColumn}>
+          <motion.div
+            className={styles.formColumn}
+            initial={{ opacity: 0, y: 28, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.formCard}>
               <h3 className={styles.formHeaderTitle}>Request for Quotation / Demo</h3>
               <p className={styles.formHeaderDesc}>
@@ -260,7 +271,7 @@ const ContactForm = () => {
                 </button>
               </form>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

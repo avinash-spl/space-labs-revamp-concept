@@ -100,6 +100,26 @@ const CULTURE_HIGHLIGHTS = [
   "Direct Impact on National Rail Safety & Transit Reliability",
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.985 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const About = () => {
   return (
     <div className={styles.pageWrapper}>
@@ -138,7 +158,13 @@ const About = () => {
       {/* Methodology Section (Hypothesize, Experiment, Validate) */}
       <section className={styles.methodologySection}>
         <div className={styles.container}>
-          <div className={styles.sectionHeaderBox}>
+          <motion.div
+            className={styles.sectionHeaderBox}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+          >
             <div className={styles.sectionTag}>
               <Award size={14} />
               <span>THE ENGINEERING CHARTER</span>
@@ -148,13 +174,24 @@ const About = () => {
               We believe transformative railway engineering requires a disciplined scientific loop:
               rigorous hypothesis, physical experimentation, and empirical track validation.
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.methodologyGrid}>
+          <motion.div
+            className={styles.methodologyGrid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             {METHODOLOGY_PHASES.map((phase, idx) => {
               const Icon = phase.icon;
               return (
-                <div key={idx} className={styles.methodologyCard}>
+                <motion.div
+                  key={idx}
+                  className={styles.methodologyCard}
+                  variants={itemVariants}
+                  whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
+                >
                   <div className={styles.phaseBadge}>{phase.phase}</div>
                   <div className={styles.phaseIconBox}>
                     <Icon size={20} />
@@ -162,17 +199,23 @@ const About = () => {
                   <h3 className={styles.phaseTitle}>{phase.title}</h3>
                   <div className={styles.phaseSubtitle}>{phase.subtitle}</div>
                   <p className={styles.phaseDesc}>{phase.desc}</p>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Foundational Principles */}
       <section className={styles.principlesSection}>
         <div className={styles.container}>
-          <div className={styles.sectionHeaderBox}>
+          <motion.div
+            className={styles.sectionHeaderBox}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+          >
             <div className={styles.sectionTag}>
               <ShieldCheck size={14} />
               <span>OPERATING VALUES</span>
@@ -181,24 +224,41 @@ const About = () => {
             <p className={styles.sectionSubtitle}>
               Our foundational design rules ensure zero-compromise precision, rugged durability, and total data governance.
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.principlesGrid}>
+          <motion.div
+            className={styles.principlesGrid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             {FOUNDATIONAL_PRINCIPLES.map((principle, idx) => (
-              <div key={idx} className={styles.principleCard}>
+              <motion.div
+                key={idx}
+                className={styles.principleCard}
+                variants={itemVariants}
+                whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
+              >
                 <div className={styles.principleIndex}>{principle.index}</div>
                 <h4 className={styles.principleTitle}>{principle.title}</h4>
                 <p className={styles.principleDesc}>{principle.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Leadership Team */}
       <section className={styles.teamSection}>
         <div className={styles.container}>
-          <div className={styles.sectionHeaderBox}>
+          <motion.div
+            className={styles.sectionHeaderBox}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+          >
             <div className={styles.sectionTag}>
               <Users size={14} />
               <span>LEADERSHIP & TALENT</span>
@@ -207,11 +267,22 @@ const About = () => {
             <p className={styles.sectionSubtitle}>
               Our multidisciplinary studio brings together rail veterans, optical physicists, and machine learning researchers.
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.teamGrid}>
+          <motion.div
+            className={styles.teamGrid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             {LEADERSHIP_TEAM.map((member, idx) => (
-              <div key={idx} className={styles.teamCard}>
+              <motion.div
+                key={idx}
+                className={styles.teamCard}
+                variants={itemVariants}
+                whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
+              >
                 <div className={styles.avatarWrapper}>
                   <img
                     src={member.imgURL}
@@ -242,9 +313,9 @@ const About = () => {
                   </div>
                   <p className={styles.memberBio}>{member.bio}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

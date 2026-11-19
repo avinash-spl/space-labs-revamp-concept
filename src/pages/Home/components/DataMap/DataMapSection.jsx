@@ -134,11 +134,21 @@ const DataMapSection = () => {
         </div>
 
         {/* 4 Architectural Value Ribbons */}
-        <div className={styles.ribbonGrid}>
+        <motion.div
+          className={styles.ribbonGrid}
+          initial={{ opacity: 0, y: 22, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.08 }}
+        >
           {VALUE_RIBBONS.map((rib, idx) => {
             const Icon = rib.icon;
             return (
-              <div key={idx} className={styles.ribbonCard}>
+              <motion.div
+                key={idx}
+                className={styles.ribbonCard}
+                whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
+              >
                 <div className={styles.ribbonIconBox}>
                   <Icon size={18} />
                 </div>
@@ -146,10 +156,10 @@ const DataMapSection = () => {
                   <h4 className={styles.ribbonTitle}>{rib.title}</h4>
                   <p className={styles.ribbonDesc}>{rib.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Interactive Module Switcher Tabs */}
         <div className={styles.tabNav}>
@@ -157,15 +167,18 @@ const DataMapSection = () => {
             const TabIcon = mod.icon;
             const isActive = activeTab === idx;
             return (
-              <button
+              <motion.button
                 key={mod.id}
                 onClick={() => setActiveTab(idx)}
                 className={`${styles.tabBtn} ${isActive ? styles.activeTabBtn : ""}`}
                 aria-label={`Switch to ${mod.title}`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.15 }}
               >
                 <TabIcon size={15} className={styles.tabBtnIcon} />
                 <span>{mod.title}</span>
-              </button>
+              </motion.button>
             );
           })}
         </div>

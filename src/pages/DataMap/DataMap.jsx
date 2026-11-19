@@ -380,7 +380,6 @@ const DataMap = () => {
   // Module 3 Vehicle Analysis state
   const [selectedWheel, setSelectedWheel] = useState("L1");
   const [compareOption, setCompareOption] = useState("Companion Wheel");
-  const [laserScanning, setLaserScanning] = useState(true);
 
   // Filtered Trains
   const filteredTrains = TRAIN_PASSAGES.filter((t) => {
@@ -507,11 +506,11 @@ const DataMap = () => {
               <motion.div
                 key={idx}
                 className={styles.metricCard}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 26, scale: 0.985 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
               >
                 <div className={styles.metricValue}>{metric.value}</div>
                 <div className={styles.metricLabel}>{metric.label}</div>
@@ -1370,20 +1369,10 @@ const DataMap = () => {
                           </div>
                         </div>
 
-                        {/* Right: High-Precision Coordinate Profile Chart with Laser Scanner Beam */}
+                        {/* Right: High-Precision Coordinate Profile Chart */}
                         <div className={styles.profileChartCard}>
-                          {/* Legend & Laser Scan Toggle */}
+                          {/* Legend */}
                           <div className={styles.chartLegendRow}>
-                            <motion.button
-                              onClick={() => setLaserScanning(!laserScanning)}
-                              className={`${styles.laserScanToggleBtn} ${laserScanning ? styles.laserScanToggleBtnActive : ""}`}
-                              whileHover={{ scale: 1.04 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <span className={styles.laserPulseDot} />
-                              <span>{laserScanning ? "Laser Scan Active" : "Resume Laser Sweep"}</span>
-                            </motion.button>
-
                             <div className={styles.legendItem}>
                               <span className={styles.cyanDot}>●</span>
                               <span>{selectedWheel} Primary Wheel</span>
@@ -1394,7 +1383,7 @@ const DataMap = () => {
                             </div>
                           </div>
 
-                          {/* Interactive SVG Coordinate Grid with Animated Laser Sweep Beam */}
+                          {/* Interactive SVG Coordinate Grid */}
                           <div className={styles.coordinateGridCanvas}>
                             <svg
                               viewBox="0 0 580 280"
@@ -1468,23 +1457,6 @@ const DataMap = () => {
                                 strokeWidth="2"
                                 strokeDasharray="4 2"
                               />
-
-                              {/* COOL FEATURE: Real-time sweeping laser beam line with glow effect */}
-                              {laserScanning && (
-                                <g className={styles.laserSweepBeam}>
-                                  <line
-                                    x1="0"
-                                    y1="25"
-                                    x2="0"
-                                    y2="255"
-                                    stroke="#38bdf8"
-                                    strokeWidth="2.5"
-                                    filter="url(#laserBeamGlow)"
-                                  />
-                                  <circle cx="0" cy="140" r="4.5" fill="#38bdf8" filter="url(#laserBeamGlow)" />
-                                  <circle cx="0" cy="140" r="2" fill="#ffffff" />
-                                </g>
-                              )}
                             </svg>
                           </div>
 
@@ -1606,11 +1578,11 @@ const DataMap = () => {
               <motion.div
                 key={s.id}
                 className={styles.sensorItemCard}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 28, scale: 0.985 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.1 }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.65, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
               >
                 <div className={styles.sensorImgFrame}>
                   <img src={s.image} alt={s.title} className={styles.sensorItemImg} />
@@ -1636,10 +1608,10 @@ const DataMap = () => {
         <div className={styles.container}>
           <motion.div
             className={styles.bottomCtaBox}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 28, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className={styles.ctaTextCol}>
               <h3 className={styles.ctaHeading}>Deploy DataMAP™ Across Your Rail Network</h3>

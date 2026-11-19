@@ -47,11 +47,12 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 28, scale: 0.985 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+    scale: 1,
+    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -203,7 +204,7 @@ const HeroSection = () => {
             <motion.div
               key={idx}
               className={styles.statCard}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              whileHover={{ y: -1.5, transition: { duration: 0.2 } }}
             >
               <div className={styles.statValue}>{stat.value}</div>
               <div className={styles.statLabel}>{stat.label}</div>

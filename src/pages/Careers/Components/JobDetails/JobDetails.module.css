@@ -1,37 +1,184 @@
 .jobDetailsSection {
   width: 100%;
   background: var(--bg-subtle, #f4f4f2);
-  padding: 60px 24px 80px;
-  border-top: 1px solid var(--border-subtle, rgba(15, 23, 42, 0.07));
+  padding: 36px 24px 70px;
+  border-top: 1px solid var(--border-subtle, rgba(15, 23, 42, 0.08));
+  scroll-margin-top: 80px;
 }
 
 .jobDetails {
   max-width: 1040px;
   margin: 0 auto;
   background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.09);
   border-radius: 28px;
-  padding: 48px 40px;
+  padding: 38px 40px;
   color: #0f172a;
   box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.06);
   position: relative;
 }
 
 @media (max-width: 640px) {
+  .jobDetailsSection {
+    padding: 24px 16px 50px;
+  }
   .jobDetails {
     padding: 28px 20px;
+    border-radius: 20px;
   }
 }
 
-.jobDetails h2 {
-  font-family: var(--font-display, sans-serif);
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
+/* ==========================================================================
+   COMPANY HEADER & BRAND BANNER (Fills Top Area with Hardware Seal)
+   ========================================================================== */
+.jobHeaderBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 22px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 }
 
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logoBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(234, 88, 12, 0.08);
+}
+
+.companyLogo {
+  height: 32px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandName {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.03em;
+}
+
+.brandAccent {
+  color: #ea580c;
+}
+
+.brandSub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.hiringBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.22);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #059669;
+  letter-spacing: 0.06em;
+}
+
+.hiringDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #059669;
+}
+
+/* ==========================================================================
+   JOB TITLE & TOP METADATA BLOCK
+   ========================================================================== */
+.jobTitleBlock {
+  margin-bottom: 28px;
+}
+
+.departmentPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.jobMainTitle {
+  font-family: var(--font-display, sans-serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 640px) {
+  .jobMainTitle {
+    font-size: 1.6rem;
+  }
+}
+
+.topMetaGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.metaChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.metaChip strong {
+  color: #0f172a;
+}
+
+.metaChipIcon {
+  color: #ea580c;
+}
+
+/* Headings & Lists */
 .jobDetails h3 {
   font-family: var(--font-display, sans-serif);
   font-size: 1.25rem;
@@ -133,7 +280,7 @@
   font-family: var(--font-sans, sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ea580c;
   border: 1px solid #c2410c;
   padding: 14px 28px;
@@ -145,10 +292,17 @@
   margin-top: 16px;
 }
 
-.submitButton:hover {
+.submitButton:hover,
+.submitButton:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+}
+
+.submitButton span,
+.submitButton:hover span {
+  color: #ffffff !important;
 }
 
 .loading {

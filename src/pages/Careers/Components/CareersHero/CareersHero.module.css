@@ -85,8 +85,9 @@
 .jobGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 24px;
   margin-bottom: 40px;
+  align-items: stretch;
 }
 
 @media (min-width: 768px) {

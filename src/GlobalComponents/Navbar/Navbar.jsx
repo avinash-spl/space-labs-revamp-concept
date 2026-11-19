@@ -40,6 +40,7 @@ const PRODUCTS = [
     name: "Machine Vision Inspection",
     desc: "Underside & wayside visual defect capture",
     icon: Eye,
+    isWIP: true,
   },
   {
     id: "product4",
@@ -48,6 +49,7 @@ const PRODUCTS = [
     name: "Coach Condition Monitoring",
     desc: "Vibration & acoustics telemetry",
     icon: Radio,
+    isWIP: true,
   },
   {
     id: "product5",
@@ -191,6 +193,9 @@ const Navbar = ({ userExists }) => {
                             <div className={styles.itemHeading}>
                               <span className={styles.itemTag}>{prod.tag}</span>
                               <span className={styles.itemName}>{prod.name}</span>
+                              {prod.isWIP && (
+                                <span className={styles.wipBadge}>Work in progress</span>
+                              )}
                             </div>
                             <p className={styles.itemDesc}>{prod.desc}</p>
                           </div>
@@ -295,8 +300,13 @@ const Navbar = ({ userExists }) => {
                   className={styles.mobileSubItem}
                   onClick={() => setIsOpen(false)}
                 >
-                  <span className={styles.mobileTag}>{prod.tag}</span>
-                  <span>{prod.name}</span>
+                  <div className={styles.mobileSubItemLeft}>
+                    <span className={styles.mobileTag}>{prod.tag}</span>
+                    <span>{prod.name}</span>
+                  </div>
+                  {prod.isWIP && (
+                    <span className={styles.mobileWipBadge}>Work in progress</span>
+                  )}
                 </Link>
               ))}
 

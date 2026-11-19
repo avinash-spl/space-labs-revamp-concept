@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./FeaturedSystems.module.css";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaTools } from "react-icons/fa";
 import {
   Cpu,
   Activity,
@@ -15,6 +16,7 @@ import {
   ExternalLink
 } from "lucide-react";
 
+// Authentic Space Labs portfolio matching live site & original codebase
 const SYSTEMS = [
   {
     id: "awpms",
@@ -31,12 +33,12 @@ const SYSTEMS = [
       { label: "Cleaning", value: "Air Purge Unit" },
     ],
     parameters: [
+      "Wheel Profile",
       "Flange Thickness & Height",
       "Root Thickness & Tread Hollow",
       "Wheel Diameter & Width",
       "Back-to-Back Distance",
       "Flange Slope Angle",
-      "Full 100% Radial Profile",
     ],
     image: "/assets/product1/measurement.jpeg",
     diagram: "/assets/product1/diagram.png",
@@ -58,12 +60,12 @@ const SYSTEMS = [
       { label: "Ambient Range", value: "-20°C to +70°C" },
     ],
     parameters: [
-      "Real-time Bearing Temperature",
-      "Wheel Rim & Tread Heat Scan",
-      "Brake Disk Temperature Beams",
-      "Automated Alarm Thresholds",
-      "High-Speed Train Compatibility",
-      "Centralized Wayside Logging",
+      "High Train Speed (up to 250 kmph)",
+      "Bearing Temperature upto 350°C",
+      "Wheel Temperature upto 500°C",
+      "Accurate Sensor Resolution",
+      "8 beams per sensor for full axle coverage",
+      "50 readings per axle for best accuracy",
     ],
     image: "/assets/product2/hbd.png",
     diagram: "/assets/product1/diagram.png",
@@ -73,78 +75,52 @@ const SYSTEMS = [
   {
     id: "mvis",
     path: "/product3",
-    tag: "SYSTEM 03 • MVIS",
-    title: "Machine Vision Inspection System",
-    subtitle: "High-Resolution Optical Underside & Wayside Defect Scanning",
+    tag: "SYSTEM 03 • MVIS (WIP)",
+    title: "Machine Vision Inspection System for Rolling Stock",
+    subtitle: "Wayside Optical Defect Scanning for Rolling Stock",
     description:
-      "A high-speed optical inspection system utilizing pulsed LED illumination and line-scan cameras to capture high-definition imagery of running gear, bogies, springs, brake pads, and structural fasteners.",
-    metrics: [
-      { label: "Imaging", value: "Digital Line-Scan" },
-      { label: "Speed", value: "Line Speed Scanning" },
-      { label: "Defects", value: "Missing/Broken Parts" },
-      { label: "Compliance", value: "Automated AI Audit" },
-    ],
-    parameters: [
-      "Bogie Component Inspection",
-      "Brake Pad Thickness & Wear",
-      "Spring & Damper Integrity",
-      "Missing Fastener Detection",
-      "Foreign Object Identification",
-      "Automated Visual Audit Trail",
-    ],
+      "Currently under active engineering development at Space Labs. Engineered for high-resolution wayside optical defect scanning, underside bogie imaging, and automated defect recognition without stopping train traffic.",
+    isWIP: true,
+    wipNotice:
+      "Machine Vision Inspection System for Rolling Stock (MVIS) is currently under active engineering R&D at Space Labs. We are developing optical line-scan and pulsed illumination architectures for automated wayside deployment.",
     image: "/assets/product3/MVIS_Banner.jpg",
-    diagram: "/assets/product1/diagram.png",
-    brochure: "/assets/AWPMS Technical Brochure - Space.pdf",
     icon: Eye,
   },
   {
     id: "ccm",
     path: "/product4",
-    tag: "SYSTEM 04 • CCM",
-    title: "Condition Monitoring System",
+    tag: "SYSTEM 04 • CCM (WIP)",
+    title: "Coach Condition Monitoring System",
     subtitle: "Rolling Stock Dynamic Vibration & Acoustic Telemetry",
     description:
-      "Integrated telemetry suite capturing coach dynamics, track-vehicle interaction, and acoustic signatures. Predicts mechanical wear and guides precision preventative maintenance schedules.",
-    metrics: [
-      { label: "Sensors", value: "Vibration & Acoustics" },
-      { label: "Platform", value: "Cloud Web Database" },
-      { label: "Analysis", value: "Predictive Analytics" },
-      { label: "Alarms", value: "Instant SMS/Email" },
-    ],
-    parameters: [
-      "Ride Index & Comfort Telemetry",
-      "Bearing Acoustic Signatures",
-      "Wheel Flat & Polygonization",
-      "Continuous Dynamic Health",
-      "Fleet Maintenance Schedules",
-      "Historical Telemetry Charts",
-    ],
+      "Currently under active engineering development at Space Labs. Engineered for continuous dynamic vibration telemetry, acoustic bearing diagnostics, and automated passenger ride comfort indexing.",
+    isWIP: true,
+    wipNotice:
+      "Coach Condition Monitoring System (CCM) is currently under active engineering R&D at Space Labs. We are testing onboard dynamic vibration telemetry and predictive mechanical health algorithms.",
     image: "/assets/product4/CCM_better_image.png",
-    diagram: "/assets/product1/diagram.png",
-    brochure: "/assets/AWPMS Technical Brochure - Space.pdf",
     icon: Radio,
   },
   {
     id: "aerial",
     path: "/product5",
     tag: "SYSTEM 05 • AERIAL",
-    title: "Aerial Railway Inspection System",
-    subtitle: "Autonomous Drone & Overhead Catenary Surveying",
+    title: "Autonomous Aerial Inspection Platform",
+    subtitle: "Autonomous Drone & Overhead Infrastructure Surveying",
     description:
-      "Autonomous aerial vision system engineered for overhead electrical catenary wires, mast alignments, track bed clearances, and corridor encroachments across difficult geographical terrain.",
+      "A long-endurance, mission-ready drone solution purpose-built for railway and linear infrastructure inspection. Combines high-resolution imaging, LiDAR scanning, and AI-driven analytics without fouling the tracks.",
     metrics: [
-      { label: "Platform", value: "Autonomous UAV / Aerial" },
-      { label: "Sensors", value: "LiDAR & 4K Optical" },
-      { label: "Coverage", value: "Corridor Surveying" },
-      { label: "Detection", value: "Catenary & Vegetation" },
+      { label: "Flight Endurance", value: "55 min" },
+      { label: "Coverage / Flight", value: "25 km" },
+      { label: "Imaging Sensor", value: "100 MP" },
+      { label: "LiDAR Range", value: "450 m" },
     ],
     parameters: [
-      "Overhead Wire Height & Stagger",
-      "Mast & Insulator Inspection",
-      "Vegetation Encroachment Map",
-      "Right-of-Way Encroachments",
-      "Track Geometry Photogrammetry",
-      "Automated Flight Mission Logs",
+      "Railway track & alignment inspection",
+      "Overhead Equipment (OHE) monitoring",
+      "Bridge, tunnel & viaduct structural assessment",
+      "Right-of-way & vegetation encroachment",
+      "Post-incident & disaster damage assessment",
+      "Construction progress & asset audits",
     ],
     image: "/assets/product5/Arial_section_img.png",
     diagram: "/assets/product5/Arial_section_img2.png",
@@ -222,54 +198,75 @@ const FeaturedSystems = () => {
                 <p className={styles.sysSubtitle}>{current.subtitle}</p>
                 <p className={styles.sysDesc}>{current.description}</p>
 
-                {/* Metrics Grid */}
-                <div className={styles.metricsGrid}>
-                  {current.metrics.map((m, i) => (
-                    <motion.div
-                      key={i}
-                      className={styles.metricItem}
-                      whileHover={{ y: -2, scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                    >
-                      <div className={styles.metricValue}>{m.value}</div>
-                      <div className={styles.metricLabel}>{m.label}</div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Parameter Badges */}
-                <div className={styles.paramsBox}>
-                  <div className={styles.paramsTitle}>MEASURED PARAMETERS & CAPABILITIES:</div>
-                  <div className={styles.paramsList}>
-                    {current.parameters.map((p, i) => (
-                      <motion.span
-                        key={i}
-                        className={styles.paramChip}
-                        whileHover={{ scale: 1.03, y: -1 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                      >
-                        <Check size={12} className={styles.checkIcon} />
-                        <span>{p}</span>
-                      </motion.span>
-                    ))}
+                {current.isWIP ? (
+                  <div className={styles.wipBannerBox}>
+                    <div className={styles.wipBannerHeader}>
+                      <FaTools size={18} />
+                      <span>ACTIVE ENGINEERING R&D • WORK IN PROGRESS</span>
+                    </div>
+                    <p className={styles.wipBannerText}>{current.wipNotice}</p>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    {/* Metrics Grid */}
+                    <div className={styles.metricsGrid}>
+                      {current.metrics?.map((m, i) => (
+                        <motion.div
+                          key={i}
+                          className={styles.metricItem}
+                          whileHover={{ y: -2, scale: 1.02 }}
+                          transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                        >
+                          <div className={styles.metricValue}>{m.value}</div>
+                          <div className={styles.metricLabel}>{m.label}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Parameter Badges */}
+                    {current.parameters && (
+                      <div className={styles.paramsBox}>
+                        <div className={styles.paramsTitle}>MEASURED PARAMETERS & CAPABILITIES:</div>
+                        <div className={styles.paramsList}>
+                          {current.parameters.map((p, i) => (
+                            <motion.span
+                              key={i}
+                              className={styles.paramChip}
+                              whileHover={{ scale: 1.03, y: -1 }}
+                              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                            >
+                              <Check size={12} className={styles.checkIcon} />
+                              <span>{p}</span>
+                            </motion.span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
 
                 {/* Action Buttons */}
                 <div className={styles.actionRow}>
                   <Link to={current.path} className={styles.fullSpecBtn}>
-                    <span>DETAILED SPECIFICATIONS</span>
+                    <span>{current.isWIP ? "VIEW DEVELOPMENT STATUS" : "DETAILED SPECIFICATIONS"}</span>
                     <ArrowRight size={15} />
                   </Link>
 
-                  <a
-                    href={current.brochure}
-                    download={`${current.id}_brochure.pdf`}
-                    className={styles.brochureBtn}
-                  >
-                    <Download size={15} />
-                    <span>DOWNLOAD BROCHURE</span>
-                  </a>
+                  {current.isWIP ? (
+                    <Link to="/contact" className={styles.brochureBtn}>
+                      <span>INQUIRE ABOUT R&D</span>
+                      <ArrowRight size={15} />
+                    </Link>
+                  ) : (
+                    <a
+                      href={current.brochure}
+                      download={`${current.id}_brochure.pdf`}
+                      className={styles.brochureBtn}
+                    >
+                      <Download size={15} />
+                      <span>DOWNLOAD BROCHURE</span>
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -283,7 +280,7 @@ const FeaturedSystems = () => {
                   />
                   <div className={styles.imageBorder}></div>
                   <div className={styles.imageTag}>
-                    <span>FIELD DEPLOYED HARDWARE</span>
+                    <span>{current.isWIP ? "ACTIVE ENGINEERING LAB" : "FIELD DEPLOYED HARDWARE"}</span>
                   </div>
                 </div>
 

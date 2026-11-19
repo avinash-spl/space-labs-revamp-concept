@@ -84,11 +84,19 @@
   outline: none;
 }
 
-.tabBtn:hover {
+.tabBtn:hover:not(.activeTabBtn) {
   color: #ea580c;
 }
 
-.activeTabBtn {
+.activeTabBtn,
+.activeTabBtn:hover,
+.activeTabBtn:focus {
+  color: #ffffff !important;
+}
+
+.activeTabBtn span,
+.activeTabBtn:hover span,
+.activeTabBtn:focus span {
   color: #ffffff !important;
 }
 
@@ -297,19 +305,27 @@
   font-family: var(--font-sans, sans-serif);
   font-size: 0.88rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ea580c;
   border: 1px solid #c2410c;
   padding: 12px 24px;
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
   transition: all 0.25s ease;
+  text-decoration: none;
 }
 
-.fullSpecBtn:hover {
+.fullSpecBtn:hover,
+.fullSpecBtn:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+}
+
+.fullSpecBtn span,
+.fullSpecBtn:hover span {
+  color: #ffffff !important;
 }
 
 .brochureBtn {
@@ -423,4 +439,35 @@
   border-color: #ea580c;
   color: #ea580c;
   transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   WORK IN PROGRESS SHOWCASE BANNER
+   ========================================================================== */
+.wipBannerBox {
+  background: rgba(234, 88, 12, 0.06);
+  border: 1px solid rgba(234, 88, 12, 0.22);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.wipBannerHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ea580c;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: var(--font-sans, sans-serif);
+}
+
+.wipBannerText {
+  color: #475569;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0;
 }

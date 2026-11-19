@@ -1,6 +1,6 @@
 .download-btn {
   background: #ea580c;
-  color: #ffffff;
+  color: #ffffff !important;
   border: 1px solid #c2410c;
   padding: 12px 22px;
   font-weight: 600;
@@ -13,12 +13,20 @@
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
 }
 
-.download-btn:hover {
+.download-btn:hover,
+.download-btn:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
+}
+
+.download-btn span,
+.download-btn:hover span {
+  color: #ffffff !important;
 }
 
 .modal-overlay {
@@ -117,7 +125,7 @@
   width: 100%;
   padding: 12px;
   background: #ea580c;
-  color: #ffffff;
+  color: #ffffff !important;
   border: 1px solid #c2410c;
   border-radius: 12px;
   font-weight: 600;
@@ -129,7 +137,9 @@
   transition: all 0.2s ease;
 }
 
-.submit-btn:hover {
+.submit-btn:hover,
+.submit-btn:focus {
   background: #c2410c;
+  color: #ffffff !important;
   box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
 }

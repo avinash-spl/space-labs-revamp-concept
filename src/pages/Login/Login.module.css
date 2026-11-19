@@ -81,7 +81,7 @@
   font-family: var(--font-sans, sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ea580c;
   border: 1px solid #c2410c;
   padding: 13px 20px;
@@ -92,8 +92,10 @@
   margin-top: 10px;
 }
 
-.loginBox button:hover {
+.loginBox button:hover,
+.loginBox button:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
 }

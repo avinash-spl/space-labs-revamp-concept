@@ -29,7 +29,7 @@
   justify-content: center;
   gap: 8px;
   background: #ea580c;
-  color: #ffffff;
+  color: #ffffff !important;
   padding: 11px 24px;
   border-radius: 12px;
   font-family: var(--font-sans, sans-serif);
@@ -40,10 +40,17 @@
   box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
 }
 
-.fileInputLabel:hover {
+.fileInputLabel:hover,
+.fileInputLabel:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
+}
+
+.fileInputLabel span,
+.fileInputLabel:hover span {
+  color: #ffffff !important;
 }
 
 .uploadIcon {

@@ -1,7 +1,25 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import JobCard from "./Card";
 import styles from "./CareersHero.module.css";
 import { Briefcase, Sparkles, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 const CareersHero = ({ jobs, setSelectedJob, selectedJob }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,7 +34,12 @@ const CareersHero = ({ jobs, setSelectedJob, selectedJob }) => {
     <section className={styles.sectionWrapper}>
       <div className={styles.container}>
         {/* Header Box */}
-        <div className={styles.headerBox}>
+        <motion.div
+          className={styles.headerBox}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className={styles.tag}>
             <Briefcase size={14} className={styles.tagIcon} />
             <span>JOIN OUR ENGINEERING STUDIO</span>
@@ -28,7 +51,7 @@ const CareersHero = ({ jobs, setSelectedJob, selectedJob }) => {
             We are solving high-stakes railway safety challenges through independent engineering, 
             applied physics, laser optics, and computer vision. Explore our current career openings below.
           </p>
-        </div>
+        </motion.div>
 
         {/* Section Title */}
         <div className={styles.openingsHeader}>
@@ -37,24 +60,34 @@ const CareersHero = ({ jobs, setSelectedJob, selectedJob }) => {
         </div>
 
         {/* Job Cards Grid */}
-        <div className={styles.jobGrid}>
+        <motion.div
+          className={styles.jobGrid}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {currentJobs.map((job, index) => (
-            <JobCard
+            <motion.div
               key={job._id || index}
-              job={job}
-              jobName={job.title}
-              experience={job.experience}
-              onClick={() => {
-                setSelectedJob(job);
-                const el = document.getElementById("job-details-view");
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              selectedJob={selectedJob}
-            />
+              variants={itemVariants}
+              style={{ display: "flex", height: "100%" }}
+            >
+              <JobCard
+                job={job}
+                jobName={job.title}
+                experience={job.experience}
+                onClick={() => {
+                  setSelectedJob(job);
+                  const el = document.getElementById("job-details-view");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+                selectedJob={selectedJob}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Pagination Controls */}
         {totalPages > 1 && (

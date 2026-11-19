@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./JobDetails.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Briefcase, Clock, MapPin, CheckCircle2, ShieldCheck } from "lucide-react";
 import PDFResumeExtractor from "../../../../utils/PdfExtractor/PdfExtractor";
 
 const JobDetails = ({ job }) => {
@@ -150,11 +151,53 @@ const JobDetails = ({ job }) => {
   return (
     <>
       <div className={styles.jobDetails}>
-        <img src="/assets/logo.png" alt="" />
-        <h2>{job.title}</h2>
-        <h3>
-          Experience: <span> {job.experience}</span>
-        </h3>
+        {/* Company Header & Brand Banner to gracefully fill top area */}
+        <div className={styles.jobHeaderBanner}>
+          <div className={styles.brandRow}>
+            <div className={styles.logoBadge}>
+              <img
+                src="/assets/logo-dark.png"
+                alt="Space Labs"
+                className={styles.companyLogo}
+              />
+            </div>
+            <div className={styles.brandText}>
+              <div className={styles.brandName}>
+                SPACE<span className={styles.brandAccent}>.LABS</span>
+              </div>
+              <span className={styles.brandSub}>ADVANCED RAILWAY ENGINEERING STUDIO</span>
+            </div>
+          </div>
+
+          <div className={styles.hiringBadge}>
+            <span className={styles.hiringDot} />
+            <span>DIRECT APPLICATION // CAREERS PORTAL</span>
+          </div>
+        </div>
+
+        {/* Job Title and Quick Metadata Bar */}
+        <div className={styles.jobTitleBlock}>
+          <div className={styles.departmentPill}>
+            <Briefcase size={14} />
+            <span>{job.department || "ENGINEERING R&D"}</span>
+          </div>
+          <h2 className={styles.jobMainTitle}>{job.title}</h2>
+
+          <div className={styles.topMetaGrid}>
+            <div className={styles.metaChip}>
+              <Clock size={15} className={styles.metaChipIcon} />
+              <span>Experience: <strong>{job.experience || "2+ Years Exp"}</strong></span>
+            </div>
+            <div className={styles.metaChip}>
+              <MapPin size={15} className={styles.metaChipIcon} />
+              <span>Location: <strong>{job.location || "Delhi NCR / Greater Noida"}</strong></span>
+            </div>
+            <div className={styles.metaChip}>
+              <CheckCircle2 size={15} className={styles.metaChipIcon} />
+              <span>Type: <strong>{job.type || job.jobType || "Full-Time"}</strong></span>
+            </div>
+          </div>
+        </div>
         
         {job.deadline && (
           <h3>

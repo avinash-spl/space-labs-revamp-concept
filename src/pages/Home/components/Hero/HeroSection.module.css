@@ -191,7 +191,7 @@
   font-family: var(--font-sans, sans-serif);
   font-size: 0.92rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ea580c;
   border: 1px solid #c2410c;
   padding: 13px 26px;
@@ -199,12 +199,20 @@
   box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  text-decoration: none;
 }
 
-.primaryBtn:hover {
+.primaryBtn:hover,
+.primaryBtn:focus {
   background: #c2410c;
+  color: #ffffff !important;
   box-shadow: 0 6px 22px rgba(234, 88, 12, 0.42);
   transform: translateY(-2px);
+}
+
+.primaryBtn span,
+.primaryBtn:hover span {
+  color: #ffffff !important;
 }
 
 .secondaryBtn {
@@ -310,11 +318,11 @@
 }
 
 .telemetryStatus {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 7px;
   font-family: var(--font-mono, monospace);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: #ea580c;
   letter-spacing: 0.06em;
@@ -322,7 +330,7 @@
 
 @media (min-width: 768px) {
   .telemetryStatus {
-    display: flex;
+    font-size: 0.72rem;
   }
 }
 
@@ -331,33 +339,6 @@
   height: 7px;
   border-radius: 50%;
   background-color: #ea580c;
-}
-
-.playbackControls {
-  display: flex;
-  align-items: center;
-}
-
-.playPausePill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  color: #334155;
-  padding: 5px 12px;
-  border-radius: 9999px;
-  font-family: var(--font-sans, sans-serif);
-  font-size: 0.72rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-  transition: all 0.2s ease;
-}
-
-.playPausePill:hover {
-  background: #f1f5f9;
-  color: #0f172a;
 }
 
 /* Video Surface */

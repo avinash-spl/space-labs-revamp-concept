@@ -115,19 +115,27 @@
   font-family: var(--font-sans, sans-serif);
   font-size: 0.92rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ea580c;
   border: 1px solid #c2410c;
   padding: 13px 26px;
   border-radius: 14px;
   box-shadow: 0 4px 16px rgba(234, 88, 12, 0.28);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
 }
 
-.careerBtn:hover {
+.careerBtn:hover,
+.careerBtn:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 22px rgba(234, 88, 12, 0.42);
+}
+
+.careerBtn span,
+.careerBtn:hover span {
+  color: #ffffff !important;
 }
 
 /* Image Column */

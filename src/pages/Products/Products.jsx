@@ -1,219 +1,250 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { FaTools } from "react-icons/fa";
 import {
-  Gauge,
-  Shield,
-  Zap,
-  PenTool as Tool,
-  Database,
-  Cloud,
-  Wind,
   Cpu,
-  X,
+  Activity,
+  Eye,
+  Radio,
+  Plane,
+  ArrowRight,
   Download,
+  Mail,
 } from "lucide-react";
-import styles from "./Products.module.css"; // Importing CSS Module
-import ImageCarousel from "./Components/ImageCarousel/ImageCarousel";
+import styles from "./Products.module.css";
 
-const measurements = [
-  { name: "Full Wheel Profile", value: "100%" },
-  { name: "Flange Thickness", value: "28.5mm" },
-  { name: "Flange Height", value: "30.0mm" },
-  { name: "Root Thickness", value: "45.2mm" },
-  { name: "Tread Hollow", value: "0.4mm" },
-  { name: "Wheel Diameter", value: "920mm" },
-  { name: "Back-to-back", value: "1360mm" },
-  { name: "Flange Slope", value: "65°" },
-  { name: "Wheel Width", value: "135mm" },
+const PORTFOLIO_SYSTEMS = [
+  {
+    id: "product1",
+    tag: "SYSTEM 01 • LASER PROFILOMETRY",
+    name: "Automatic Wheel Profile Measurement System (AWPMS)",
+    desc: "Wayside automated laser profilometry inspecting rolling stock wheel geometry at line speeds up to 160+ km/h with certified ±300 μm sub-millimeter precision.",
+    specs: [
+      { label: "Accuracy", value: "±300 μm" },
+      { label: "Speed", value: "160+ km/h" },
+      { label: "Enclosure", value: "IP68 Sealed" },
+    ],
+    path: "/product1",
+    brochure: "/assets/AWPMS Technical Brochure - Space.pdf",
+    icon: Cpu,
+    image: "/assets/product1/measurement.jpeg",
+  },
+  {
+    id: "product2",
+    tag: "SYSTEM 02 • THERMAL TELEMETRY",
+    name: "Hot Axle Box & Wheel Heat Detection System (HABD)",
+    desc: "Multi-beam infrared non-contact thermal scanner designed to detect overheated bearings (up to 350°C) and hot wheels (up to 500°C) before catastrophic failure occurs.",
+    specs: [
+      { label: "Bearing Heat", value: "Upto 350°C" },
+      { label: "Wheel Heat", value: "Upto 500°C" },
+      { label: "Sensors", value: "4-8 Beams" },
+    ],
+    path: "/product2",
+    brochure: "/assets/RTV-WPMS-NEW.pdf",
+    icon: Activity,
+    image: "/assets/product2/hbd.png",
+  },
+  {
+    id: "product3",
+    tag: "SYSTEM 03 • WORK IN PROGRESS",
+    name: "Machine Vision Inspection System for Rolling Stock (MVIS)",
+    desc: "Machine Vision Inspection System for Rolling Stock is currently under active engineering development at Space Labs. Engineered for automated optical wayside and underside defect inspection.",
+    isWIP: true,
+    wipNotice:
+      "Currently under active engineering development and track testing at Space Labs. Designed for high-speed underside and bogie visual defect identification without interrupting train schedules.",
+    path: "/product3",
+    icon: Eye,
+    image: "/assets/product3/MVIS_Banner.jpg",
+  },
+  {
+    id: "product4",
+    tag: "SYSTEM 04 • WORK IN PROGRESS",
+    name: "Coach Condition Monitoring System (CCM)",
+    desc: "Coach Condition Monitoring System is currently under active engineering development at Space Labs. Engineered for rolling stock dynamic vibration and acoustic telemetry.",
+    isWIP: true,
+    wipNotice:
+      "Currently under active engineering development and dynamic track validation at Space Labs. Designed for onboard dynamic vibration telemetry, acoustic bearing diagnostics, and automated ride comfort indexing.",
+    path: "/product4",
+    icon: Radio,
+    image: "/assets/product4/CCM_better_image.png",
+  },
+  {
+    id: "product5",
+    tag: "SYSTEM 05 • AERIAL DRONE",
+    name: "Autonomous Aerial Railway Inspection Platform",
+    desc: "Autonomous aerial vision system engineered for overhead electrical catenary wires, mast alignments, track bed clearances, and corridor encroachments across difficult terrain.",
+    specs: [
+      { label: "Endurance", value: "55 min Flight" },
+      { label: "LiDAR Range", value: "450 m Scan" },
+      { label: "Resolution", value: "100 MP Matrix" },
+    ],
+    path: "/product5",
+    icon: Plane,
+    image: "/assets/product5/Arial_section_img.png",
+  },
 ];
 
-const features = [
-  { icon: Tool, text: "Easy Maintenance" },
-  { icon: Zap, text: "Quick Installation" },
-  { icon: Wind, text: "Air Purge Unit for system cleaning" },
-  { icon: Shield, text: "IP68 rated protection" },
-  { icon: Database, text: "Digital Imaging acquisition" },
-  { icon: Cloud, text: "Web-based database" },
-  { icon: Cpu, text: "System accuracy up to 300 microns" },
-  { icon: Gauge, text: "Bi-directional System" },
-];
-
-const ImageModal = ({ src, alt, onClose }) => {
-  return (
-    <AnimatePresence>
-      {src && (
-        <motion.div
-          className={styles.modalOverlay}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <motion.div
-            className={styles.modalContent}
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className={styles.closeButton} onClick={onClose}>
-              <X size={24} />
-            </button>
-            <img src={src} alt={alt} className={styles.modalImage} />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
 };
 
-const Product = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0 });
+const itemVariants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
-  const openModal = (src) => setSelectedImage(src);
-  const closeModal = () => setSelectedImage(null);
-  const handleDownload = () => {
-    window.open("/assets/RTV-WPMS-NEW.pdf", "_blank");
-  };
-
+const ProductsOverview = () => {
   return (
     <div className={styles.container}>
       {/* Hero Section */}
       <div className={styles.hero}>
-        <div className={styles.heroOverlay} />
+        <div className={styles.heroGlow} />
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className={styles.heroContent}
         >
+          <div className={styles.heroTag}>
+            <span className={styles.heroTagDot} />
+            <span>RDSO ALIGNED • AUTONOMOUS RAILWAY SUITE</span>
+          </div>
+
           <h1 className={styles.heroTitle}>
-            Automatic Wheel Profile
-            <span className={styles.heroSubtitle}>Measurement System</span>
+            Engineered Railway Vision & Sensor Systems
           </h1>
-        </motion.div>
-      </div>
-      <div
-        style={{
-          background: `url(/assets/moon.jpg)`,
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed",
-          backgroundPosition: "10% 35%",
-        }}
-      >
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className={styles.para}
-        >
-          <p>
-            Rolling stock faults pose a severe danger to railway safety. With
-            increased rail traffic and train operations, it is critical to
-            monitor the condition of rolling stock in order to discover defects
-            that might lead to serious accidents. Because of increased train
-            traffic density, manual inspection has become a time-consuming task.
-            Furthermore, manual inspection methods for measuring wheel profile
-            (or wheel flaws) rely heavily on human involvement, resulting in
-            greater labour costs, poor reproducibility, and manual mistakes.
-          </p>
-          <p>
-            Wheel Profile Measurement System systems are used to determine the
-            wheel profiles of moving trains. These systems examine wheels for
-            preventative maintenance, maintenance scheduling, derailment
-            prevention, and track and rail damage caused by overly worn wheels.
-          </p>{" "}
-          <p>
-            {" "}
-            The WPMS system is a rugged system that can be used in difficult
-            areas including workshops, depots, and yards. It features an
-            extremely resilient construction that allows it to operate for
-            lengthy periods of time without human interaction.
+
+          <p className={styles.heroSubtitle}>
+            Comprehensive wayside laser metrology, multi-beam thermal detection, optical line-scan machine vision, dynamic coach telemetry, and autonomous aerial surveying.
           </p>
         </motion.div>
-        <ImageCarousel />
       </div>
 
-      {/* Measurements Section */}
+      {/* Portfolio Grid */}
       <div className={styles.section}>
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
-          className={styles.measurementsContainer}
-          style={{ background: `url(/assets/OBJ.jpg)` }}
+          className={styles.portfolioGrid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          style={{ display: "flex", flexDirection: "column", gap: "32px" }}
         >
-          <div className={styles.imageGrid}>
-            <img
-              src="/assets/product1/measurement.jpeg"
-              alt="Railway wheel measurement"
-              className={styles.measurementImage}
-              onClick={() => openModal("/assets/product1/measurement.jpeg")}
-            />
-          </div>
-          <div className={styles.measurementContent}>
-            <h1>Measurements:</h1>
-            <div className={styles.measurementsGrid}>
-              {measurements.map(({ name, value }, index) => (
-                <motion.div
-                  key={name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={styles.measurementCard}
-                >
-                  <h3 className={styles.measurementTitle}>{name}</h3>
-                  <div className={styles.measurementValue}>{value}</div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+          {PORTFOLIO_SYSTEMS.map((sys) => {
+            const Icon = sys.icon;
+            return (
+              <motion.div
+                key={sys.id}
+                className={styles.featuresContainer}
+                variants={itemVariants}
+                style={{ marginBottom: "0px" }}
+              >
+                <div className={styles.featuresContent}>
+                  <div className={styles.sectionHeader}>
+                    <span className={styles.sectionTag}>{sys.tag}</span>
+                    <h2 className={styles.sectionTitle} style={{ fontSize: "1.6rem" }}>
+                      {sys.name}
+                    </h2>
+                  </div>
+
+                  <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: "1.7" }}>
+                    {sys.desc}
+                  </p>
+
+                  {sys.isWIP ? (
+                    <div className={styles.workInProgress} style={{ margin: "16px 0", maxWidth: "100%", justifyContent: "flex-start" }}>
+                      <FaTools size={20} />
+                      <div style={{ textAlign: "left" }}>
+                        <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>Work in progress</div>
+                        <div style={{ fontSize: "0.82rem", color: "#64748b", fontWeight: 400 }}>{sys.wipNotice}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    sys.specs && (
+                      <div className={styles.measurementsGrid} style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+                        {sys.specs.map((s, i) => (
+                          <div key={i} className={styles.measurementCard}>
+                            <span className={styles.measurementTitle}>{s.label}</span>
+                            <span className={styles.measurementValue} style={{ fontSize: "1.05rem" }}>
+                              {s.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )
+                  )}
+
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", marginTop: "12px" }}>
+                    <Link to={sys.path} className={styles.brochureButton} style={{ padding: "11px 22px", fontSize: "0.88rem" }}>
+                      <span>{sys.isWIP ? "View Development Status" : "Explore Technical Specs"}</span>
+                      <ArrowRight size={15} />
+                    </Link>
+
+                    {sys.isWIP ? (
+                      <Link
+                        to="/contact"
+                        className={styles.rfqButton}
+                        style={{ padding: "11px 20px", fontSize: "0.88rem" }}
+                      >
+                        <Mail size={15} />
+                        <span>Inquire About R&D</span>
+                      </Link>
+                    ) : sys.brochure ? (
+                      <a
+                        href={sys.brochure}
+                        download
+                        className={styles.rfqButton}
+                        style={{ padding: "11px 20px", fontSize: "0.88rem" }}
+                      >
+                        <Download size={15} />
+                        <span>Brochure (PDF)</span>
+                      </a>
+                    ) : (
+                      <Link
+                        to="/contact"
+                        className={styles.rfqButton}
+                        style={{ padding: "11px 20px", fontSize: "0.88rem" }}
+                      >
+                        <Mail size={15} />
+                        <span>Request Consultation</span>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+
+                <div className={styles.imageGrid}>
+                  <img
+                    src={sys.image}
+                    alt={sys.name}
+                    className={styles.featureVideo}
+                    style={{ height: "320px", objectFit: sys.id === "product2" ? "contain" : "cover" }}
+                  />
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
-
-        {/* Features Section */}
-        <div className={styles.featuresContainer}>
-          <div className={styles.featuresContent}>
-            <h1>Features:</h1>
-            <div className={styles.featuresGrid}>
-              {features.map(({ icon: Icon, text }, index) => (
-                <motion.div className={styles.featureItem}>
-                  <p className={styles.featureText}>{text}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.imageGrid}>
-            <video
-              src="/assets/product1.mp4"
-              alt="Railway technology"
-              className={styles.featureVideo}
-              autoPlay
-              muted
-              loop
-            />
-          </div>
-        </div>
-
-        {/* CTA Section */}
       </div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className={styles.ctaContainer}
-      >
-        <button onClick={handleDownload} className={styles.brochureButton}>
-          Download Brochure <Download />
-        </button>
-      </motion.div>
-      {/* Image Modal */}
-      <ImageModal src={selectedImage} alt="Zoomed image" onClose={closeModal} />
+
+      {/* Global RFQ Footer CTA */}
+      <div className={styles.ctaContainer}>
+        <Link to="/contact" className={styles.brochureButton} style={{ padding: "15px 36px" }}>
+          <span>Request Detailed System RFQ & Consultation</span>
+          <ArrowRight size={17} />
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default Product;
+export default ProductsOverview;

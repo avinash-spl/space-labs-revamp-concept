@@ -5,10 +5,10 @@
 .MuiTabs-indicator {
   background-color: var(--primary, #ea580c) !important;
 }
-a {
+.MuiModal-root a {
   color: var(--primary, #ea580c);
   transition: color 0.2s ease;
 }
-a:hover {
+.MuiModal-root a:hover {
   color: var(--primary-hover, #c2410c);
 }

@@ -118,6 +118,52 @@ button {
   cursor: pointer;
 }
 
+/* Global Button & Link Safeguard: Solid orange primary action elements ALWAYS maintain crisp white text */
+[class*="primaryBtn"],
+[class*="ctaBtn"],
+[class*="fullSpecBtn"],
+[class*="careerBtn"],
+[class*="submitBtn"],
+[class*="download-btn"],
+[class*="submit-btn"],
+[class*="brochureButton"],
+[class*="submitButton"] {
+  color: #ffffff !important;
+}
+
+[class*="primaryBtn"]:hover,
+[class*="primaryBtn"]:focus,
+[class*="ctaBtn"]:hover,
+[class*="ctaBtn"]:focus,
+[class*="fullSpecBtn"]:hover,
+[class*="fullSpecBtn"]:focus,
+[class*="careerBtn"]:hover,
+[class*="careerBtn"]:focus,
+[class*="submitBtn"]:hover,
+[class*="submitBtn"]:focus,
+[class*="download-btn"]:hover,
+[class*="download-btn"]:focus,
+[class*="submit-btn"]:hover,
+[class*="submit-btn"]:focus,
+[class*="brochureButton"]:hover,
+[class*="brochureButton"]:focus,
+[class*="submitButton"]:hover,
+[class*="submitButton"]:focus {
+  color: #ffffff !important;
+}
+
+[class*="primaryBtn"] span,
+[class*="ctaBtn"] span,
+[class*="fullSpecBtn"] span,
+[class*="careerBtn"] span,
+[class*="submitBtn"] span,
+[class*="download-btn"] span,
+[class*="submit-btn"] span,
+[class*="brochureButton"] span,
+[class*="submitButton"] span {
+  color: #ffffff !important;
+}
+
 /* Selection Color */
 ::selection {
   background-color: rgba(234, 88, 12, 0.16);

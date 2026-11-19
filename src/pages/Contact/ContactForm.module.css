@@ -327,7 +327,7 @@
   font-family: var(--font-sans, sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ea580c;
   border: 1px solid #c2410c;
   padding: 14px 28px;
@@ -338,8 +338,15 @@
   margin-top: 8px;
 }
 
-.submitBtn:hover {
+.submitBtn:hover,
+.submitBtn:focus {
   background: #c2410c;
+  color: #ffffff !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+}
+
+.submitBtn span,
+.submitBtn:hover span {
+  color: #ffffff !important;
 }

@@ -18,11 +18,12 @@ const JobCard = ({ jobName, experience, onClick, selectedJob, job }) => {
         <span className={styles.jobType}>{job?.type || "Full-Time"}</span>
       </div>
 
-      <h3 className={styles.jobTitle}>{jobName}</h3>
-
-      {job?.description && (
-        <p className={styles.jobSnippet}>{job.description}</p>
-      )}
+      <div className={styles.cardBody}>
+        <h3 className={styles.jobTitle}>{jobName}</h3>
+        <p className={styles.jobSnippet}>
+          {job?.description || "Explore this critical engineering role advancing autonomous railway vision at Space Labs."}
+        </p>
+      </div>
 
       <div className={styles.cardFooter}>
         <div className={styles.metaRow}>
@@ -36,7 +37,7 @@ const JobCard = ({ jobName, experience, onClick, selectedJob, job }) => {
           </div>
         </div>
 
-        <button className={styles.applyBtn}>
+        <button className={styles.applyBtn} type="button">
           <span>APPLY</span>
           <ArrowRight size={14} />
         </button>

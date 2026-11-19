@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 import {
+  Plane,
   X,
+  Download,
+  ArrowRight,
   Route,
-  Eye,
-  AlertTriangle,
   Activity,
-  MapPin,
   Layers,
+  MapPin,
+  AlertTriangle,
+  Eye,
 } from "lucide-react";
 import styles from "./Products.module.css";
 import ImageCarousel from "./Components/ImageCarousel/ImageCarousel";
 
+// Exact authentic use cases from space-labs.in & original codebase
 const useCases = [
   { icon: Route, text: "Railway track & alignment inspection" },
   { icon: Activity, text: "Overhead Equipment (OHE) & catenary monitoring" },
@@ -22,6 +27,7 @@ const useCases = [
   { icon: Eye, text: "Construction progress & asset audits" },
 ];
 
+// Exact authentic specifications from space-labs.in & original codebase
 const specifications = [
   { name: "Flight Endurance", value: "55 min" },
   { name: "Coverage per Flight", value: "25 km" },
@@ -32,6 +38,12 @@ const specifications = [
   { name: "Wind Resistance", value: "12 m/s" },
   { name: "Operating Temperature", value: "-20°C to 50°C" },
   { name: "Communication Range", value: "30 km" },
+];
+
+const carouselImages = [
+  "/assets/product5/arial1.png",
+  "/assets/product5/arial2.png",
+  "/assets/product5/arial3.png",
 ];
 
 const ImageModal = ({ src, alt, onClose }) => {
@@ -47,13 +59,18 @@ const ImageModal = ({ src, alt, onClose }) => {
         >
           <motion.div
             className={styles.modalContent}
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
-            <button className={styles.closeButton} onClick={onClose}>
-              <X size={24} />
+            <button
+              className={styles.closeButton}
+              onClick={onClose}
+              aria-label="Close image modal"
+            >
+              <X size={20} />
             </button>
             <img src={src} alt={alt} className={styles.modalImage} />
           </motion.div>
@@ -65,36 +82,22 @@ const ImageModal = ({ src, alt, onClose }) => {
 
 const Product5 = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0 });
+  const [paraRef, paraInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [featRef, featInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [whyRef, whyInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [specsRef, specsInView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [isSafariMobile, setIsSafariMobile] = useState(false);
 
   useEffect(() => {
     const ua = window.navigator.userAgent;
     const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
     const webkit = !!ua.match(/WebKit/i);
-    const isSafariIOS =
-      iOS && webkit && !ua.match(/CriOS/i) && !ua.match(/FxiOS/i);
-
+    const isSafariIOS = iOS && webkit && !ua.match(/CriOS/i) && !ua.match(/FxiOS/i);
     setIsSafariMobile(isSafariIOS);
   }, []);
 
   const openModal = (src) => setSelectedImage(src);
   const closeModal = () => setSelectedImage(null);
-
-  const getBackgroundStyle = (imageUrl) => {
-    return {
-      background: `url(${imageUrl})`,
-      backgroundSize: "cover",
-      backgroundPosition: isSafariMobile ? "center" : "10% 35%",
-      backgroundAttachment: isSafariMobile ? "scroll" : "fixed",
-    };
-  };
-
-  const carouselImages = [
-    "/assets/product5/arial1.png",
-    "/assets/product5/arial2.png",
-    "/assets/product5/arial3.png",
-  ];
 
   return (
     <div className={styles.container}>
@@ -103,19 +106,26 @@ const Product5 = () => {
         <div
           className={styles.heroOverlay}
           style={{
-            background: "url(/assets/product5/Arial_nav_Banner.png)",
+            backgroundImage: "url(/assets/product5/Arial_nav_Banner.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: isSafariMobile ? "scroll" : "fixed",
-            filter: "brightness(0.45)",
+            opacity: 0.2,
           }}
         />
+        <div className={styles.heroGlow} />
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className={styles.heroContent}
         >
+          <div className={styles.heroTag}>
+            <span className={styles.heroTagDot} />
+            <span>SYSTEM 05 • AUTONOMOUS DRONE SURVEYING</span>
+          </div>
+
           <h1 className={styles.heroTitle}>
             Autonomous Aerial
             <span className={styles.heroSubtitle}>Inspection Platform</span>
@@ -124,164 +134,179 @@ const Product5 = () => {
       </div>
 
       {/* What is the product? */}
-      <div style={getBackgroundStyle("/assets/moon.jpg")}>
+      <section className={styles.narrativeSection}>
         <motion.div
-          ref={ref}
+          ref={paraRef}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          animate={paraInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className={styles.para}
         >
-          <h1 style={{ textAlign: "center", marginBottom: "10px" }}>
-            What is the product?
-          </h1>
-          <p>
-            The Autonomous Aerial Inspection Platform is a long-endurance,
-            mission-ready drone solution purpose-built for railway and linear
-            infrastructure inspection. It combines high-resolution imaging,
-            LiDAR scanning and AI-driven analytics to deliver a complete
-            digital view of track, overhead equipment and surrounding
-            right-of-way assets in a single autonomous flight.
-          </p>
-          <p>
-            Pre-programmed flight corridors allow the platform to follow rail
-            alignments at low altitude with centimetre-level accuracy, capturing
-            geo-referenced imagery and 3D point clouds. The collected data is
-            processed into actionable defect reports — identifying rail surface
-            damage, missing fasteners, ballast deficiencies, OHE wear and
-            vegetation intrusion — without disrupting live train operations.
-          </p>
-          <p>
-            Designed for Indian Railways' scale and operating environment, the
-            system replaces slow, manual track-walking with a repeatable,
-            data-driven inspection workflow that improves safety, reduces cost
-            and enables predictive maintenance across thousands of route
-            kilometres.
-          </p>
+          <div className={styles.paraCard} style={{ gridColumn: "1 / -1" }}>
+            <div className={styles.paraCardHeader}>
+              <span className={styles.paraNum}>01</span>
+              <h3 className={styles.sectionTitle} style={{ fontSize: "1.4rem" }}>
+                What is the product?
+              </h3>
+            </div>
+            <p className={styles.paraText}>
+              The Autonomous Aerial Inspection Platform is a long-endurance, mission-ready
+              drone solution purpose-built for railway and linear infrastructure inspection.
+              It combines high-resolution imaging, LiDAR scanning and AI-driven analytics
+              to deliver a complete digital view of track, overhead equipment, structures
+              and right-of-way — all without fouling the line or putting boots on the ballast.
+            </p>
+            <p className={styles.paraText} style={{ marginTop: "12px" }}>
+              Designed to meet the stringent safety and operational requirements of modern
+              rail networks, the platform replaces manual visual patrols with a repeatable,
+              data-driven inspection workflow that improves safety, reduces cost and enables
+              predictive maintenance across thousands of route kilometres.
+            </p>
+          </div>
         </motion.div>
-      </div>
+      </section>
 
+      {/* Objective & Use Cases */}
       <div className={styles.section}>
-        {/* Objective / Use Cases */}
-        <div className={styles.featuresContainer} style={{ gap: "60px" }}>
+        <motion.div
+          ref={featRef}
+          className={styles.featuresContainer}
+          initial={{ opacity: 0, y: 24 }}
+          animate={featInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className={styles.featuresContent}>
-            <h1>Objective &amp; Use Cases:</h1>
-            <div
-              className={styles.featuresGrid}
-              style={{ gridTemplateColumns: "repeat(2, 320px)" }}
-            >
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionTag}>OPERATIONAL OBJECTIVES</span>
+              <h2 className={styles.sectionTitle}>Objective & Use Cases:</h2>
+            </div>
+
+            <div className={styles.featuresGrid}>
               {useCases.map(({ icon: Icon, text }, index) => (
                 <motion.div
                   key={index}
                   className={styles.featureItem}
-                  style={{ minHeight: "100px", padding: "28px" }}
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 >
+                  <div className={styles.featureIconBox}>
+                    <Icon size={18} />
+                  </div>
                   <p className={styles.featureText}>{text}</p>
                 </motion.div>
               ))}
             </div>
           </div>
-          <div>
+
+          <div className={styles.imageGrid}>
             <img
               src="/assets/product5/Arial_section_img.png"
-              alt="Aerial railway inspection"
-              onClick={() =>
-                openModal("/assets/product5/Arial_section_img.png")
-              }
-              style={{
-                maxWidth: "100%",
-                maxHeight: "360px",
-                width: "auto",
-                height: "auto",
-                objectFit: "contain",
-                borderRadius: "12px",
-                cursor: "zoom-in",
-              }}
+              alt="Aerial railway inspection overview"
+              className={styles.featureVideo}
+              style={{ objectFit: "contain", background: "#f8fafc", padding: "12px", cursor: "zoom-in" }}
+              onClick={() => openModal("/assets/product5/Arial_section_img.png")}
             />
           </div>
-        </div>
-      </div>
-
-      {/* Why drones? */}
-      <div style={getBackgroundStyle("/assets/moon.jpg")}>
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className={styles.para}
-        >
-          <h1 style={{ textAlign: "center", marginBottom: "10px" }}>
-            Why Drones?
-          </h1>
-          <p>
-            Manual track-walking inspection is slow, hazardous and limited by
-            line-of-sight. The Autonomous Aerial Inspection Platform completes
-            in minutes what a survey team would take days to cover, scanning
-            entire route corridors at a fraction of the cost per kilometre and
-            without exposing personnel to live tracks.
-          </p>
-          <p>
-            From the air, the system reaches embankments, cuttings, bridges
-            and elevated overhead equipment that are difficult or unsafe to
-            inspect from the ground. High-resolution imagery and LiDAR data
-            are captured uniformly across every pass, so results are
-            repeatable and directly comparable across inspection cycles.
-          </p>
-          <p>
-            AI-assisted defect detection turns each flight into a structured,
-            geo-referenced dataset — enabling trend analysis, predictive
-            maintenance and faster decision-making than any manual workflow
-            can deliver.
-          </p>
         </motion.div>
       </div>
 
-      <div className={styles.section}>
-        {/* Product Specifications */}
+      {/* Why Drones? */}
+      <section className={styles.narrativeSection}>
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
+          ref={whyRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={whyInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className={styles.para}
+        >
+          <div className={styles.paraCard} style={{ gridColumn: "1 / -1" }}>
+            <div className={styles.paraCardHeader}>
+              <span className={styles.paraNum}>02</span>
+              <h3 className={styles.sectionTitle} style={{ fontSize: "1.4rem" }}>
+                Why Drones?
+              </h3>
+            </div>
+            <p className={styles.paraText}>
+              Manual track-walking inspection is slow, hazardous and limited by line-of-sight.
+              The Autonomous Aerial Inspection Platform completes in minutes what a survey
+              team would take days to cover, scanning entire route corridors at a fraction
+              of the cost per kilometre and without exposing personnel to live tracks.
+            </p>
+            <p className={styles.paraText} style={{ marginTop: "12px" }}>
+              From the air, the system reaches embankments, cuttings, bridges and elevated
+              overhead equipment that are difficult or unsafe to inspect from the ground.
+              High-resolution imagery and LiDAR data are captured uniformly across every pass,
+              so results are repeatable and directly comparable across inspection cycles.
+            </p>
+            <p className={styles.paraText} style={{ marginTop: "12px" }}>
+              AI-assisted defect detection turns each flight into a structured, geo-referenced
+              dataset — enabling trend analysis, predictive maintenance and faster decision-making
+              than any manual workflow can deliver.
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Specifications & Capabilities */}
+      <div className={styles.section}>
+        <motion.div
+          ref={specsRef}
           className={styles.measurementsContainer}
-          style={{ ...getBackgroundStyle("/assets/OBJ.jpg"), top: 0 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={specsInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className={styles.measurementContent}>
-            <h1>Specifications &amp; Capabilities:</h1>
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionTag}>MISSION PARAMETERS</span>
+              <h2 className={styles.sectionTitle}>Specifications & Capabilities:</h2>
+            </div>
+
             <div className={styles.measurementsGrid}>
               {specifications.map(({ name, value }, index) => (
                 <motion.div
                   key={name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={styles.measurementCard}
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 >
-                  <h3 className={styles.measurementTitle}>{name}</h3>
-                  <div className={styles.measurementValue}>{value}</div>
+                  <span className={styles.measurementTitle}>{name}</span>
+                  <span className={styles.measurementValue}>{value}</span>
                 </motion.div>
               ))}
             </div>
           </div>
+
           <div className={styles.imageGrid}>
             <img
               src="/assets/product5/Arial_section_img2.png"
-              alt="Aerial inspection capabilities"
+              alt="Aerial inspection capabilities schematic"
               className={styles.measurementImage}
               onClick={() => openModal("/assets/product5/Arial_section_img2.png")}
             />
           </div>
         </motion.div>
 
+        {/* Carousel */}
         <div style={{ paddingTop: "20px" }}>
           <ImageCarousel images={carouselImages} />
         </div>
       </div>
 
-      <div style={{ height: "80px" }} />
+      {/* Action Row */}
+      <div className={styles.ctaContainer}>
+        <Link to="/contact" className={styles.brochureButton}>
+          <span>Inquire / Request Aerial Surveying RFQ</span>
+          <ArrowRight size={16} />
+        </Link>
+      </div>
 
-      <ImageModal src={selectedImage} alt="Zoomed image" onClose={closeModal} />
+      {/* Image Modal */}
+      <ImageModal
+        src={selectedImage}
+        alt="Zoomed aerial imagery"
+        onClose={closeModal}
+      />
     </div>
   );
 };

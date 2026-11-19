@@ -1,12 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import styles from "./HeroSection.module.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
   Download,
-  Play,
-  Pause,
   ChevronDown,
   Sparkles,
   ShieldCheck,
@@ -59,19 +57,6 @@ const itemVariants = {
 
 const HeroSection = () => {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  const toggleVideoPlayback = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play();
-        setIsPlaying(true);
-      }
-    }
-  };
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -168,17 +153,6 @@ const HeroSection = () => {
                 <span className={styles.activeDot} />
                 <span>160 KM/H DYNAMIC SCAN READY</span>
               </div>
-
-              <div className={styles.playbackControls}>
-                <button
-                  onClick={toggleVideoPlayback}
-                  className={styles.playPausePill}
-                  aria-label={isPlaying ? "Pause Video Stream" : "Resume Video Stream"}
-                >
-                  {isPlaying ? <Pause size={13} /> : <Play size={13} />}
-                  <span>{isPlaying ? "Pause Feed" : "Resume Feed"}</span>
-                </button>
-              </div>
             </div>
 
             {/* Pure Video Container */}
@@ -204,7 +178,7 @@ const HeroSection = () => {
                 </div>
                 <div className={styles.pillContent}>
                   <span className={styles.pillTitle}>Laser Wheel Profilometry</span>
-                  <span className={styles.pillStat}>±300 μm Dynamic Lock</span>
+                  <span className={styles.pillStat}>Accuracy up to 300 μm</span>
                 </div>
               </motion.div>
 
@@ -217,8 +191,8 @@ const HeroSection = () => {
                   <Activity size={14} className={styles.pillIconOrange} />
                 </div>
                 <div className={styles.pillContent}>
-                  <span className={styles.pillTitle}>Thermal Bearing Infrared</span>
-                  <span className={styles.pillStat}>Multi-Beam up to 500°C</span>
+                  <span className={styles.pillTitle}>Hot Box & Wheel Thermal IR</span>
+                  <span className={styles.pillStat}>4–8 Beams • Up to 500°C</span>
                 </div>
               </motion.div>
             </div>

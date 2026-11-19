@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./HomePillars.module.css";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Layers,
   Database,
@@ -61,12 +62,37 @@ const PILLARS = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const HomePillars = () => {
   return (
     <section className={styles.sectionWrapper}>
       <div className={styles.container}>
         {/* Section Header */}
-        <div className={styles.headerBox}>
+        <motion.div
+          className={styles.headerBox}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <div className={styles.tag}>
             <Layers size={14} className={styles.tagIcon} />
             <span>PLATFORM ARCHITECTURE & MODULES</span>
@@ -75,18 +101,37 @@ const HomePillars = () => {
           <p className={styles.subtitle}>
             Explore our dedicated technology modules. From tie-mounted trackside sensors to centralized enterprise operations analytics.
           </p>
-        </div>
+        </motion.div>
 
-        {/* 4 Pillars Grid */}
-        <div className={styles.grid}>
+        {/* 4 Pillars Grid with Staggered Entrance and Micro-Hover */}
+        <motion.div
+          className={styles.grid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           {PILLARS.map((pillar) => {
             const Icon = pillar.icon;
             return (
-              <div key={pillar.id} className={styles.card}>
+              <motion.div
+                key={pillar.id}
+                className={styles.card}
+                variants={cardVariants}
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0 16px 36px rgba(15, 23, 42, 0.09)",
+                  transition: { duration: 0.2 },
+                }}
+              >
                 <div className={styles.cardTop}>
-                  <div className={styles.iconBox} style={{ color: pillar.accent }}>
+                  <motion.div
+                    className={styles.iconBox}
+                    style={{ color: pillar.accent }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
                     <Icon size={22} />
-                  </div>
+                  </motion.div>
                   <span className={styles.cardTag}>{pillar.tag}</span>
                 </div>
 
@@ -107,10 +152,10 @@ const HomePillars = () => {
                     <ArrowRight size={15} />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -39,7 +39,8 @@ import {
   List,
   SlidersHorizontal,
   Settings,
-  TrainTrack
+  Zap,
+  Sparkles
 } from "lucide-react";
 
 // Authentic simulated train passes matching datamap-train-browser.webp
@@ -362,7 +363,6 @@ const DataMap = () => {
   // Navigation & Console state
   const [activeModule, setActiveModule] = useState("trains"); // "trains", "alarms", "vehicles", "settings"
   const [selectedSite, setSelectedSite] = useState("Ridgeview");
-  const [selectedDetector, setSelectedDetector] = useState("All");
   const [units, setUnits] = useState("Imperial"); // "Imperial" or "Metric"
   
   // Module 1 Train Browser state
@@ -380,6 +380,7 @@ const DataMap = () => {
   // Module 3 Vehicle Analysis state
   const [selectedWheel, setSelectedWheel] = useState("L1");
   const [compareOption, setCompareOption] = useState("Companion Wheel");
+  const [laserScanning, setLaserScanning] = useState(true);
 
   // Filtered Trains
   const filteredTrains = TRAIN_PASSAGES.filter((t) => {
@@ -437,47 +438,64 @@ const DataMap = () => {
           <div className={styles.heroScrim} />
         </div>
 
+        {/* Ambient Floating Atmospheric Glow Orbs */}
+        <div className={styles.ambientGlowOrb1} />
+        <div className={styles.ambientGlowOrb2} />
+
         <div className={styles.container} style={{ position: "relative", zIndex: 2 }}>
-          <div className={styles.badgeRow}>
-            <div className={styles.tag}>
-              <Database size={14} className={styles.tagIcon} />
-              <span>CENTRALIZED RAIL OPERATIONS SOFTWARE</span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className={styles.badgeRow}>
+              <div className={styles.tag}>
+                <Database size={14} className={styles.tagIcon} />
+                <span>CENTRALIZED RAIL OPERATIONS SOFTWARE</span>
+              </div>
+              <div className={styles.statusPill}>
+                <span className={styles.livePulse} />
+                <span>SYSTEM ONLINE // v3.4 ENTERPRISE</span>
+              </div>
             </div>
-            <div className={styles.statusPill}>
-              <span className={styles.livePulse} />
-              <span>SYSTEM ONLINE // v3.4 ENTERPRISE</span>
+
+            <h1 className={styles.title}>
+              DataMAP<span className={styles.titleAccent}>™</span> Operations Platform
+            </h1>
+
+            <p className={styles.subtitle}>
+              Turning wayside hardware sensor telemetry into actionable, preventative maintenance decisions.
+              Consolidating laser profilometry (AWPMS), thermal infrared scans (HABD), high-speed vision (MVIS),
+              and dynamic telemetry (CCM) into a unified enterprise railway intelligence console.
+            </p>
+
+            {/* Quick Action Ribbon */}
+            <div className={styles.heroActions}>
+              <motion.a
+                href="#datamap-console"
+                className={styles.primaryActionBtn}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <span>Launch Interactive Console</span>
+                <ArrowRight size={16} />
+              </motion.a>
+              <motion.a
+                href="/assets/AWPMS Technical Brochure - Space.pdf"
+                download="SpaceLabs_DataMAP_Specs.pdf"
+                className={styles.secondaryActionBtn}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Download size={15} />
+                <span>Download Architecture Spec (PDF)</span>
+              </motion.a>
+              <Link to="/products" className={styles.tertiaryActionBtn}>
+                <Layers size={15} />
+                <span>View Hardware Sensor Matrix</span>
+              </Link>
             </div>
-          </div>
-
-          <h1 className={styles.title}>
-            DataMAP<span className={styles.titleAccent}>™</span> Operations Platform
-          </h1>
-
-          <p className={styles.subtitle}>
-            Turning wayside hardware sensor telemetry into actionable, preventative maintenance decisions.
-            Consolidating laser profilometry (AWPMS), thermal infrared scans (HABD), high-speed vision (MVIS),
-            and dynamic telemetry (CCM) into a unified enterprise railway intelligence console.
-          </p>
-
-          {/* Quick Action Ribbon */}
-          <div className={styles.heroActions}>
-            <Link to="/contact" className={styles.primaryActionBtn}>
-              <span>Schedule Live DataMAP™ Demo</span>
-              <ArrowRight size={16} />
-            </Link>
-            <a
-              href="/assets/AWPMS Technical Brochure - Space.pdf"
-              download="SpaceLabs_DataMAP_Specs.pdf"
-              className={styles.secondaryActionBtn}
-            >
-              <Download size={15} />
-              <span>Download Architecture Spec (PDF)</span>
-            </a>
-            <Link to="/products" className={styles.tertiaryActionBtn}>
-              <Layers size={15} />
-              <span>View Hardware Sensor Matrix</span>
-            </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -486,11 +504,19 @@ const DataMap = () => {
         <div className={styles.container}>
           <div className={styles.metricsGrid}>
             {METRICS_CARDS.map((metric, idx) => (
-              <div key={idx} className={styles.metricCard}>
+              <motion.div
+                key={idx}
+                className={styles.metricCard}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              >
                 <div className={styles.metricValue}>{metric.value}</div>
                 <div className={styles.metricLabel}>{metric.label}</div>
                 <div className={styles.metricDetail}>{metric.detail}</div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -512,43 +538,55 @@ const DataMap = () => {
 
             {/* Quick Switcher for Primary Software Modules */}
             <div className={styles.moduleSwitcher}>
-              <button
+              <motion.button
                 onClick={() => setActiveModule("trains")}
                 className={`${styles.moduleSwitchBtn} ${activeModule === "trains" ? styles.moduleSwitchBtnActive : ""}`}
+                whileTap={{ scale: 0.95 }}
               >
                 <Activity size={14} />
                 <span>Train Browser</span>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={() => setActiveModule("alarms")}
                 className={`${styles.moduleSwitchBtn} ${activeModule === "alarms" ? styles.moduleSwitchBtnActive : ""}`}
+                whileTap={{ scale: 0.95 }}
               >
                 <AlertTriangle size={14} />
                 <span>Alarm Browser</span>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={() => setActiveModule("vehicles")}
                 className={`${styles.moduleSwitchBtn} ${activeModule === "vehicles" ? styles.moduleSwitchBtnActive : ""}`}
+                whileTap={{ scale: 0.95 }}
               >
                 <Sliders size={14} />
                 <span>Vehicle Analysis</span>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={() => setActiveModule("settings")}
                 className={`${styles.moduleSwitchBtn} ${activeModule === "settings" ? styles.moduleSwitchBtnActive : ""}`}
+                whileTap={{ scale: 0.95 }}
               >
                 <Settings size={14} />
                 <span>Open APIs</span>
-              </button>
+              </motion.button>
             </div>
           </div>
 
           {/* Master Software Chassis Frame (Exact Dark Design of DataMAP) */}
           <div className={styles.masterChassis}>
-            {/* Top Navigation Bar of the Software (Exact clone of Infravis DataMAP header) */}
+            {/* Top Navigation Bar of the Software */}
             <header className={styles.softwareTopBar}>
               <div className={styles.softwareLogoBox}>
                 <span className={styles.softwareLogoText}>DataMAP</span>
+                <span className={styles.softwareLogoBadge}>v3.4</span>
+              </div>
+
+              {/* Center Radar Scanner Live Telemetry HUD */}
+              <div className={styles.radarStatusPill}>
+                <div className={styles.radarPingCircle} />
+                <span className={styles.radarLiveDot} />
+                <span className={styles.radarText}>LIVE SENSOR TELEMETRY UPLINK ACTIVE</span>
               </div>
 
               <div className={styles.softwareTopControls}>
@@ -566,14 +604,15 @@ const DataMap = () => {
                 </div>
 
                 {/* Units Imperial / Metric Toggle */}
-                <button
+                <motion.button
                   onClick={() => setUnits(units === "Imperial" ? "Metric" : "Imperial")}
                   className={styles.unitsPill}
                   title="Click to toggle Units (Imperial/Metric)"
+                  whileTap={{ scale: 0.92 }}
                 >
                   <span className={styles.unitsSub}>UNITS</span>
                   <span className={styles.unitsVal}>{units}</span>
-                </button>
+                </motion.button>
 
                 {/* Notifications Bell with 99+ Badge */}
                 <div className={styles.bellPill}>
@@ -592,788 +631,907 @@ const DataMap = () => {
             <div className={styles.softwareBody}>
               {/* Left Slim Vertical Icon Rail */}
               <aside className={styles.softwareSidebar}>
-                <button
+                <motion.button
                   onClick={() => setActiveModule("trains")}
                   className={`${styles.railIconBtn} ${activeModule === "trains" ? styles.railIconBtnActive : ""}`}
                   title="Train Browser"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <Activity size={18} />
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={() => setActiveModule("alarms")}
                   className={`${styles.railIconBtn} ${activeModule === "alarms" ? styles.railIconBtnActive : ""}`}
                   title="Alarm Browser"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <AlertTriangle size={18} />
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={() => setActiveModule("vehicles")}
                   className={`${styles.railIconBtn} ${activeModule === "vehicles" ? styles.railIconBtnActive : ""}`}
                   title="Vehicle Analysis"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <Sliders size={18} />
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={() => setActiveModule("settings")}
                   className={`${styles.railIconBtn} ${activeModule === "settings" ? styles.railIconBtnActive : ""}`}
                   title="Diagnostics & Open APIs"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <Settings size={18} />
-                </button>
+                </motion.button>
               </aside>
 
-              {/* Main Active Software Workspace */}
+              {/* Main Active Software Workspace with Fluid AnimatePresence Transitions */}
               <main className={styles.softwareMainArea}>
-                {/* =========================================================
-                    VIEW 1: TRAIN BROWSER (EXACT MATCH TO datamap-train-browser)
-                    ========================================================= */}
-                {activeModule === "trains" && (
-                  <div className={styles.workspaceWrapper}>
-                    {/* Sub-Header Bar */}
-                    <div className={styles.subHeaderBar}>
-                      <div className={styles.subHeaderLeft}>
-                        <div className={styles.moduleTitleRow}>
-                          <h3 className={styles.moduleTitle}>Train Browser</h3>
-                          <RefreshCw size={13} className={styles.refreshIcon} />
+                <AnimatePresence mode="wait">
+                  {/* =========================================================
+                      VIEW 1: TRAIN BROWSER (EXACT MATCH TO datamap-train-browser)
+                      ========================================================= */}
+                  {activeModule === "trains" && (
+                    <motion.div
+                      key="trains"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                      className={styles.workspaceWrapper}
+                    >
+                      {/* Sub-Header Bar */}
+                      <div className={styles.subHeaderBar}>
+                        <div className={styles.subHeaderLeft}>
+                          <div className={styles.moduleTitleRow}>
+                            <h3 className={styles.moduleTitle}>Train Browser</h3>
+                            <motion.div
+                              whileHover={{ rotate: 180 }}
+                              transition={{ duration: 0.4 }}
+                            >
+                              <RefreshCw size={13} className={styles.refreshIcon} />
+                            </motion.div>
+                          </div>
+                          <div className={styles.tabLinksRow}>
+                            <button
+                              onClick={() => setTrainSubTab("Trains")}
+                              className={`${styles.tabLink} ${trainSubTab === "Trains" ? styles.tabLinkActive : ""}`}
+                            >
+                              Trains
+                            </button>
+                            <button
+                              onClick={() => setTrainSubTab("Vehicles")}
+                              className={`${styles.tabLink} ${trainSubTab === "Vehicles" ? styles.tabLinkActive : ""}`}
+                            >
+                              Vehicles
+                            </button>
+                          </div>
                         </div>
-                        <div className={styles.tabLinksRow}>
-                          <button
-                            onClick={() => setTrainSubTab("Trains")}
-                            className={`${styles.tabLink} ${trainSubTab === "Trains" ? styles.tabLinkActive : ""}`}
+
+                        <div className={styles.subHeaderRight}>
+                          <motion.button
+                            className={styles.exportsBtn}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.96 }}
                           >
-                            Trains
+                            <Download size={13} />
+                            <span>Exports</span>
+                            <ChevronDown size={13} />
+                          </motion.button>
+                        </div>
+                      </div>
+
+                      {/* Filter Controls Row */}
+                      <div className={styles.filterBar}>
+                        <div className={styles.filterFieldBox}>
+                          <span>Train ID</span>
+                          <ChevronDown size={12} className={styles.mutedChevron} />
+                        </div>
+
+                        <div className={styles.searchBox}>
+                          <Search size={14} className={styles.searchIconMuted} />
+                          <input
+                            type="text"
+                            placeholder="Search by Train ID"
+                            value={trainSearchQuery}
+                            onChange={(e) => setTrainSearchQuery(e.target.value)}
+                            className={styles.softwareInput}
+                          />
+                        </div>
+
+                        <div className={styles.filterPillSelect}>
+                          <Calendar size={13} className={styles.mutedCalendar} />
+                          <span>Select Date Range</span>
+                        </div>
+
+                        <div className={styles.filterPillSelect}>
+                          <span>Detector Type</span>
+                          <ChevronDown size={12} className={styles.mutedChevron} />
+                        </div>
+
+                        <button className={styles.moreFiltersBtn}>
+                          <Filter size={13} />
+                          <span>More Filters</span>
+                        </button>
+
+                        <div className={styles.viewToggleGroup}>
+                          <button className={`${styles.viewBtn} ${styles.viewBtnActive}`}>
+                            <Grid size={13} />
                           </button>
-                          <button
-                            onClick={() => setTrainSubTab("Vehicles")}
-                            className={`${styles.tabLink} ${trainSubTab === "Vehicles" ? styles.tabLinkActive : ""}`}
-                          >
-                            Vehicles
+                          <button className={styles.viewBtn}>
+                            <List size={13} />
                           </button>
                         </div>
                       </div>
 
-                      <div className={styles.subHeaderRight}>
-                        <button className={styles.exportsBtn}>
-                          <Download size={13} />
-                          <span>Exports</span>
-                          <ChevronDown size={13} />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Filter Controls Row */}
-                    <div className={styles.filterBar}>
-                      <div className={styles.filterFieldBox}>
-                        <span>Train ID</span>
-                        <ChevronDown size={12} className={styles.mutedChevron} />
-                      </div>
-
-                      <div className={styles.searchBox}>
-                        <Search size={14} className={styles.searchIconMuted} />
-                        <input
-                          type="text"
-                          placeholder="Search by Train ID"
-                          value={trainSearchQuery}
-                          onChange={(e) => setTrainSearchQuery(e.target.value)}
-                          className={styles.softwareInput}
-                        />
-                      </div>
-
-                      <div className={styles.filterPillSelect}>
-                        <Calendar size={13} className={styles.mutedCalendar} />
-                        <span>Select Date Range</span>
-                      </div>
-
-                      <div className={styles.filterPillSelect}>
-                        <span>Detector Type</span>
-                        <ChevronDown size={12} className={styles.mutedChevron} />
-                      </div>
-
-                      <button className={styles.moreFiltersBtn}>
-                        <Filter size={13} />
-                        <span>More Filters</span>
-                      </button>
-
-                      <div className={styles.viewToggleGroup}>
-                        <button className={`${styles.viewBtn} ${styles.viewBtnActive}`}>
-                          <Grid size={13} />
-                        </button>
-                        <button className={styles.viewBtn}>
-                          <List size={13} />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Data Table (Exact Columns of DataMAP Train Browser) */}
-                    <div className={styles.tableScrollBox}>
-                      <table className={styles.softwareTable}>
-                        <thead>
-                          <tr>
-                            <th>Train ID</th>
-                            <th>Lead Loco</th>
-                            <th>Passed On</th>
-                            <th>Site Name</th>
-                            <th>Direction</th>
-                            <th>Speed ({units === "Imperial" ? "mph" : "km/h"})</th>
-                            <th>Total Vehicles</th>
-                            <th>WheelMAP</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredTrains.map((tr) => {
-                            const isSelected = selectedTrain?.trainId === tr.trainId;
-                            const displaySpeed =
-                              units === "Imperial"
+                      {/* Data Table */}
+                      <div className={styles.tableScrollBox}>
+                        <table className={styles.softwareTable}>
+                          <thead>
+                            <tr>
+                              <th>Train ID</th>
+                              <th>Lead Loco</th>
+                              <th>Passed On</th>
+                              <th>Site Name</th>
+                              <th>Direction</th>
+                              <th>Speed ({units === "Imperial" ? "mph" : "km/h"})</th>
+                              <th>Total Vehicles</th>
+                              <th>WheelMAP</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {filteredTrains.map((tr) => {
+                              const isSelected = selectedTrain?.trainId === tr.trainId;
+                              const displaySpeed =
+                                units === "Imperial"
                                 ? tr.speedMph.toFixed(1)
                                 : (tr.speedMph * 1.60934).toFixed(1);
 
-                            return (
-                              <tr
-                                key={tr.trainId}
-                                onClick={() => {
-                                  setSelectedTrain(tr);
-                                  setTrainDetailOpen(true);
-                                }}
-                                className={`${styles.tableDataRow} ${
-                                  isSelected ? styles.tableDataRowSelected : ""
-                                }`}
-                              >
-                                <td>
-                                  <div className={styles.trainIdPill}>
-                                    <span className={styles.amberText}>{tr.trainId}</span>
-                                    <ChevronDown size={11} className={styles.mutedChevron} />
-                                  </div>
-                                </td>
-                                <td>
-                                  <span className={styles.leadLocoText}>{tr.leadLoco}</span>
-                                </td>
-                                <td>
-                                  <span className={styles.dateText}>{tr.passedOn}</span>
-                                </td>
-                                <td>
-                                  <span className={styles.siteText}>{tr.siteName}</span>
-                                </td>
-                                <td>
-                                  <span className={styles.dirText}>{tr.direction}</span>
-                                </td>
-                                <td>
-                                  <span className={styles.speedText}>{displaySpeed}</span>
-                                </td>
-                                <td>
-                                  <span className={styles.vehiclesText}>{tr.totalVehicles}</span>
-                                </td>
-                                <td>
-                                  <div className={styles.dualBadgeGroup}>
-                                    <span className={styles.warnBadge}>
-                                      {tr.warnings < 10 ? `0${tr.warnings}` : tr.warnings} Warnings
-                                    </span>
-                                    {tr.alerts > 0 ? (
-                                      <span className={styles.alertBadge}>
-                                        {tr.alerts < 10 ? `0${tr.alerts}` : tr.alerts}{" "}
-                                        {tr.alerts === 1 ? "Alert" : "Alerts"}
+                              return (
+                                <tr
+                                  key={tr.trainId}
+                                  onClick={() => {
+                                    setSelectedTrain(tr);
+                                    setTrainDetailOpen(true);
+                                  }}
+                                  className={`${styles.tableDataRow} ${
+                                    isSelected ? styles.tableDataRowSelected : ""
+                                  }`}
+                                >
+                                  <td>
+                                    <div className={styles.trainIdPill}>
+                                      <span className={styles.amberText}>{tr.trainId}</span>
+                                      <ChevronDown size={11} className={styles.mutedChevron} />
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <span className={styles.leadLocoText}>{tr.leadLoco}</span>
+                                  </td>
+                                  <td>
+                                    <span className={styles.dateText}>{tr.passedOn}</span>
+                                  </td>
+                                  <td>
+                                    <span className={styles.siteText}>{tr.siteName}</span>
+                                  </td>
+                                  <td>
+                                    <span className={styles.dirText}>{tr.direction}</span>
+                                  </td>
+                                  <td>
+                                    <span className={styles.speedText}>{displaySpeed}</span>
+                                  </td>
+                                  <td>
+                                    <span className={styles.vehiclesText}>{tr.totalVehicles}</span>
+                                  </td>
+                                  <td>
+                                    <div className={styles.dualBadgeGroup}>
+                                      <span className={styles.warnBadge}>
+                                        {tr.warnings < 10 ? `0${tr.warnings}` : tr.warnings} Warnings
                                       </span>
-                                    ) : (
-                                      <span className={styles.zeroBadge}>00 Alerts</span>
-                                    )}
-                                  </div>
+                                      {tr.alerts > 0 ? (
+                                        <span className={styles.alertBadge}>
+                                          {tr.alerts < 10 ? `0${tr.alerts}` : tr.alerts}{" "}
+                                          {tr.alerts === 1 ? "Alert" : "Alerts"}
+                                        </span>
+                                      ) : (
+                                        <span className={styles.zeroBadge}>00 Alerts</span>
+                                      )}
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <button
+                                      className={styles.moreActionBtn}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedTrain(tr);
+                                        setTrainDetailOpen(true);
+                                      }}
+                                    >
+                                      <MoreHorizontal size={15} />
+                                    </button>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Selected Train Drawer with Framer Motion AnimatePresence */}
+                      <AnimatePresence>
+                        {trainDetailOpen && selectedTrain && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0, y: -8 }}
+                            animate={{ opacity: 1, height: "auto", y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -8 }}
+                            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                            className={styles.passageInspectionDrawer}
+                          >
+                            <div className={styles.drawerTop}>
+                              <div className={styles.drawerTitleBox}>
+                                <span className={styles.inspectBadge}>INSPECT PASSAGE TELEMETRY</span>
+                                <h4>Train #{selectedTrain.trainId} — {selectedTrain.leadLoco}</h4>
+                                <span className={styles.drawerMeta}>
+                                  Passed: {selectedTrain.passedOn} • Site: {selectedTrain.siteName} (Direction {selectedTrain.direction})
+                                </span>
+                              </div>
+                              <button
+                                onClick={() => setTrainDetailOpen(false)}
+                                className={styles.drawerCloseBtn}
+                              >
+                                ×
+                              </button>
+                            </div>
+
+                            <div className={styles.drawerBodyGrid}>
+                              <div className={styles.drawerMetricItem}>
+                                <span>Total Axles Ingested</span>
+                                <strong>{selectedTrain.totalVehicles * 4} Axles</strong>
+                              </div>
+                              <div className={styles.drawerMetricItem}>
+                                <span>Dynamic Transit Speed</span>
+                                <strong>{selectedTrain.speedMph} mph ({Math.round(selectedTrain.speedMph * 1.609)} km/h)</strong>
+                              </div>
+                              <div className={styles.drawerMetricItem}>
+                                <span>Wheel Geometry Alarms</span>
+                                <strong className={selectedTrain.alerts > 0 ? styles.alertText : styles.okText}>
+                                  {selectedTrain.warnings} Warnings • {selectedTrain.alerts} Critical Alerts
+                                </strong>
+                              </div>
+                              <div className={styles.drawerMetricItem}>
+                                <span>Telemetry Confidence</span>
+                                <strong className={styles.okText}>99.6% Sub-Millimeter</strong>
+                              </div>
+                            </div>
+
+                            <div className={styles.drawerFooterRow}>
+                              <motion.button
+                                onClick={() => setActiveModule("vehicles")}
+                                className={styles.jumpToVehicleBtn}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.97 }}
+                              >
+                                <span>Inspect Axle Cross-Sections in Vehicle Analysis</span>
+                                <ArrowRight size={13} />
+                              </motion.button>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  )}
+
+                  {/* =========================================================
+                      VIEW 2: ALARM BROWSER (EXACT MATCH TO datamap-alarm-list)
+                      ========================================================= */}
+                  {activeModule === "alarms" && (
+                    <motion.div
+                      key="alarms"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                      className={styles.workspaceWrapper}
+                    >
+                      {/* Sub-Header Bar with Global Alarm Stats */}
+                      <div className={styles.subHeaderBar}>
+                        <div className={styles.subHeaderLeft}>
+                          <div className={styles.moduleTitleRow}>
+                            <h3 className={styles.moduleTitle}>Alarm Browser</h3>
+                            <motion.div
+                              whileHover={{ rotate: 180 }}
+                              transition={{ duration: 0.4 }}
+                            >
+                              <RefreshCw size={13} className={styles.refreshIcon} />
+                            </motion.div>
+                          </div>
+                          <div className={styles.tabLinksRow}>
+                            <button
+                              onClick={() => setAlarmSubTab("Alarms")}
+                              className={`${styles.tabLink} ${alarmSubTab === "Alarms" ? styles.tabLinkActive : ""}`}
+                            >
+                              Alarms (1825)
+                            </button>
+                            <button
+                              onClick={() => setAlarmSubTab("Unattended")}
+                              className={`${styles.tabLink} ${alarmSubTab === "Unattended" ? styles.tabLinkActive : ""}`}
+                            >
+                              Unattended Alarms (171427)
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className={styles.alarmStatsGroup}>
+                          <div className={styles.statBox}>
+                            <span className={styles.statLabel}>Warnings</span>
+                            <span className={styles.statValue}>74844</span>
+                          </div>
+                          <div className={styles.statBox}>
+                            <span className={styles.statLabel}>Alerts</span>
+                            <span className={styles.statValue}>81587</span>
+                          </div>
+                          <motion.button
+                            className={styles.exportsBtn}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.96 }}
+                          >
+                            <Download size={13} />
+                            <span>Exports</span>
+                            <ChevronDown size={13} />
+                          </motion.button>
+                        </div>
+                      </div>
+
+                      {/* Filter Row */}
+                      <div className={styles.filterBar}>
+                        <div className={styles.filterFieldBox}>
+                          <span>Vehicle ID</span>
+                          <ChevronDown size={12} className={styles.mutedChevron} />
+                        </div>
+
+                        <div className={styles.searchBox}>
+                          <Search size={14} className={styles.searchIconMuted} />
+                          <input
+                            type="text"
+                            placeholder="Search by Vehicle ID"
+                            value={alarmSearchQuery}
+                            onChange={(e) => setAlarmSearchQuery(e.target.value)}
+                            className={styles.softwareInput}
+                          />
+                        </div>
+
+                        <div className={styles.filterPillSelect}>
+                          <Calendar size={13} className={styles.mutedCalendar} />
+                          <span>Select Date Range</span>
+                        </div>
+
+                        <div className={styles.filterPillSelect}>
+                          <select
+                            value={alarmFilterType}
+                            onChange={(e) => setAlarmFilterType(e.target.value)}
+                            className={styles.alarmTypeSelect}
+                          >
+                            <option value="ALL">Alarm Type (All)</option>
+                            <option value="Alert">Alerts Only</option>
+                            <option value="Warning">Warnings Only</option>
+                          </select>
+                        </div>
+
+                        <button className={styles.moreFiltersBtn}>
+                          <Filter size={13} />
+                          <span>More Filters</span>
+                        </button>
+                      </div>
+
+                      {/* Alarm Data Table */}
+                      <div className={styles.tableScrollBox}>
+                        <table className={styles.softwareTable}>
+                          <thead>
+                            <tr>
+                              <th>Vehicle ID</th>
+                              <th>Wheel</th>
+                              <th>Date</th>
+                              <th>Alarm</th>
+                              <th>Parameters</th>
+                              <th>Value</th>
+                              <th>Threshold</th>
+                              <th>Status</th>
+                              <th>Assigned To</th>
+                              <th>Remark</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {filteredAlarms.map((a) => (
+                              <tr key={a.id} className={styles.tableDataRow}>
+                                <td>
+                                  <span className={styles.amberText}>{a.vehicleId}</span>
                                 </td>
                                 <td>
-                                  <button
-                                    className={styles.moreActionBtn}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      setSelectedTrain(tr);
-                                      setTrainDetailOpen(true);
-                                    }}
+                                  <span className={styles.wheelBadge}>{a.wheel}</span>
+                                </td>
+                                <td>
+                                  <span className={styles.dateText}>{a.date}</span>
+                                </td>
+                                <td>
+                                  {a.alarm === "Alert" ? (
+                                    <span className={styles.tablePillAlert}>Alert</span>
+                                  ) : (
+                                    <span className={styles.tablePillWarn}>Warning</span>
+                                  )}
+                                </td>
+                                <td>
+                                  <span className={styles.paramText}>{a.parameter}</span>
+                                </td>
+                                <td>
+                                  <span className={styles.monoValue}>{a.value}</span>
+                                </td>
+                                <td>
+                                  <span className={styles.monoValueMuted}>{a.threshold}</span>
+                                </td>
+                                <td>
+                                  <motion.button
+                                    onClick={() => handleAcknowledge(a.id)}
+                                    className={
+                                      a.status === "Acknowledged"
+                                        ? styles.ackPillDone
+                                        : styles.ackPillPending
+                                    }
+                                    title="Click to acknowledge alarm"
+                                    whileTap={{ scale: 0.92 }}
                                   >
+                                    {a.status === "Acknowledged" ? "✓ Acknowledged" : a.status}
+                                  </motion.button>
+                                </td>
+                                <td>
+                                  <span className={styles.mutedDash}>{a.assignedTo}</span>
+                                </td>
+                                <td>
+                                  <span className={styles.mutedDash}>{a.remark}</span>
+                                </td>
+                                <td>
+                                  <button className={styles.moreActionBtn}>
                                     <MoreHorizontal size={15} />
                                   </button>
                                 </td>
                               </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
 
-                    {/* Selected Train Drawer (Interactive Drilldown) */}
-                    {trainDetailOpen && selectedTrain && (
-                      <div className={styles.passageInspectionDrawer}>
-                        <div className={styles.drawerTop}>
-                          <div className={styles.drawerTitleBox}>
-                            <span className={styles.inspectBadge}>INSPECT PASSAGE</span>
-                            <h4>Train #{selectedTrain.trainId} — {selectedTrain.leadLoco}</h4>
-                            <span className={styles.drawerMeta}>
-                              Passed: {selectedTrain.passedOn} • Site: {selectedTrain.siteName} (Direction {selectedTrain.direction})
-                            </span>
-                          </div>
-                          <button
-                            onClick={() => setTrainDetailOpen(false)}
-                            className={styles.drawerCloseBtn}
-                          >
-                            ×
-                          </button>
-                        </div>
-
-                        <div className={styles.drawerBodyGrid}>
-                          <div className={styles.drawerMetricItem}>
-                            <span>Total Axles Ingested</span>
-                            <strong>{selectedTrain.totalVehicles * 4} Axles</strong>
-                          </div>
-                          <div className={styles.drawerMetricItem}>
-                            <span>Dynamic Transit Speed</span>
-                            <strong>{selectedTrain.speedMph} mph ({Math.round(selectedTrain.speedMph * 1.609)} km/h)</strong>
-                          </div>
-                          <div className={styles.drawerMetricItem}>
-                            <span>Wheel Geometry Alarms</span>
-                            <strong className={selectedTrain.alerts > 0 ? styles.alertText : styles.okText}>
-                              {selectedTrain.warnings} Warnings • {selectedTrain.alerts} Critical Alerts
-                            </strong>
-                          </div>
-                          <div className={styles.drawerMetricItem}>
-                            <span>Telemetry Confidence</span>
-                            <strong className={styles.okText}>99.6% Sub-Millimeter</strong>
+                      {/* Pagination Bar */}
+                      <div className={styles.paginationBar}>
+                        <span className={styles.paginationTotal}>
+                          Total: {filteredAlarms.length} Records
+                        </span>
+                        <div className={styles.paginationControls}>
+                          <span className={styles.recordsPerPage}>100 Records per page v</span>
+                          <div className={styles.pageButtons}>
+                            <button className={styles.pageArrow}><ChevronsLeft size={13} /></button>
+                            <button className={styles.pageArrow}><ChevronLeft size={13} /></button>
+                            <span className={styles.pageNum}>1 of 19</span>
+                            <button className={styles.pageArrow}><ChevronRight size={13} /></button>
+                            <button className={styles.pageArrow}><ChevronsRight size={13} /></button>
                           </div>
                         </div>
-
-                        <div className={styles.drawerFooterRow}>
-                          <button
-                            onClick={() => setActiveModule("vehicles")}
-                            className={styles.jumpToVehicleBtn}
-                          >
-                            <span>Inspect Axle Cross-Sections in Vehicle Analysis</span>
-                            <ArrowRight size={13} />
-                          </button>
-                        </div>
                       </div>
-                    )}
-                  </div>
-                )}
+                    </motion.div>
+                  )}
 
-                {/* =========================================================
-                    VIEW 2: ALARM BROWSER (EXACT MATCH TO datamap-alarm-list)
-                    ========================================================= */}
-                {activeModule === "alarms" && (
-                  <div className={styles.workspaceWrapper}>
-                    {/* Sub-Header Bar with Global Alarm Stats */}
-                    <div className={styles.subHeaderBar}>
-                      <div className={styles.subHeaderLeft}>
-                        <div className={styles.moduleTitleRow}>
-                          <h3 className={styles.moduleTitle}>Alarm Browser</h3>
-                          <RefreshCw size={13} className={styles.refreshIcon} />
+                  {/* =========================================================
+                      VIEW 3: VEHICLE ANALYSIS (MATCHING datamap-vehicle-detail)
+                      ========================================================= */}
+                  {activeModule === "vehicles" && (
+                    <motion.div
+                      key="vehicles"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                      className={styles.workspaceWrapper}
+                    >
+                      {/* Sub-Header */}
+                      <div className={styles.subHeaderBar}>
+                        <div className={styles.subHeaderLeft}>
+                          <h3 className={styles.moduleTitle}>Vehicle Analysis</h3>
                         </div>
-                        <div className={styles.tabLinksRow}>
-                          <button
-                            onClick={() => setAlarmSubTab("Alarms")}
-                            className={`${styles.tabLink} ${alarmSubTab === "Alarms" ? styles.tabLinkActive : ""}`}
-                          >
-                            Alarms (1825)
-                          </button>
-                          <button
-                            onClick={() => setAlarmSubTab("Unattended")}
-                            className={`${styles.tabLink} ${alarmSubTab === "Unattended" ? styles.tabLinkActive : ""}`}
-                          >
-                            Unattended Alarms (171427)
-                          </button>
+                        <div className={styles.subHeaderRight}>
+                          <div className={styles.controlPill}>
+                            <span className={styles.controlLabel}>Parameters: Wheel Profile</span>
+                            <ChevronDown size={13} className={styles.mutedChevron} />
+                          </div>
                         </div>
                       </div>
 
-                      <div className={styles.alarmStatsGroup}>
-                        <div className={styles.statBox}>
-                          <span className={styles.statLabel}>Warnings</span>
-                          <span className={styles.statValue}>74844</span>
-                        </div>
-                        <div className={styles.statBox}>
-                          <span className={styles.statLabel}>Alerts</span>
-                          <span className={styles.statValue}>81587</span>
-                        </div>
-                        <button className={styles.exportsBtn}>
-                          <Download size={13} />
-                          <span>Exports</span>
-                          <ChevronDown size={13} />
-                        </button>
-                      </div>
-                    </div>
+                      {/* Compare Radio Options & View Profile Button */}
+                      <div className={styles.vehicleCompareBar}>
+                        <span className={styles.compareLabel}>Compare:</span>
+                        {[
+                          "Companion Wheel",
+                          "Any Wheel on Same Vehicle",
+                          "Wheel Standards",
+                          "Previous passes",
+                        ].map((opt) => (
+                          <label key={opt} className={styles.radioLabel}>
+                            <input
+                              type="radio"
+                              name="compareRadio"
+                              checked={compareOption === opt}
+                              onChange={() => setCompareOption(opt)}
+                              className={styles.radioInput}
+                            />
+                            <span className={styles.radioText}>{opt}</span>
+                          </label>
+                        ))}
 
-                    {/* Filter Row */}
-                    <div className={styles.filterBar}>
-                      <div className={styles.filterFieldBox}>
-                        <span>Vehicle ID</span>
-                        <ChevronDown size={12} className={styles.mutedChevron} />
-                      </div>
-
-                      <div className={styles.searchBox}>
-                        <Search size={14} className={styles.searchIconMuted} />
-                        <input
-                          type="text"
-                          placeholder="Search by Vehicle ID"
-                          value={alarmSearchQuery}
-                          onChange={(e) => setAlarmSearchQuery(e.target.value)}
-                          className={styles.softwareInput}
-                        />
-                      </div>
-
-                      <div className={styles.filterPillSelect}>
-                        <Calendar size={13} className={styles.mutedCalendar} />
-                        <span>Select Date Range</span>
-                      </div>
-
-                      <div className={styles.filterPillSelect}>
-                        <select
-                          value={alarmFilterType}
-                          onChange={(e) => setAlarmFilterType(e.target.value)}
-                          className={styles.alarmTypeSelect}
+                        <motion.button
+                          className={styles.viewProfileBtn}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
-                          <option value="ALL">Alarm Type (All)</option>
-                          <option value="Alert">Alerts Only</option>
-                          <option value="Warning">Warnings Only</option>
-                        </select>
+                          <RefreshCw size={13} />
+                          <span>View Wheel Profile</span>
+                        </motion.button>
                       </div>
 
-                      <button className={styles.moreFiltersBtn}>
-                        <Filter size={13} />
-                        <span>More Filters</span>
-                      </button>
-                    </div>
-
-                    {/* Alarm Data Table */}
-                    <div className={styles.tableScrollBox}>
-                      <table className={styles.softwareTable}>
-                        <thead>
-                          <tr>
-                            <th>Vehicle ID</th>
-                            <th>Wheel</th>
-                            <th>Date</th>
-                            <th>Alarm</th>
-                            <th>Parameters</th>
-                            <th>Value</th>
-                            <th>Threshold</th>
-                            <th>Status</th>
-                            <th>Assigned To</th>
-                            <th>Remark</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredAlarms.map((a) => (
-                            <tr key={a.id} className={styles.tableDataRow}>
-                              <td>
-                                <span className={styles.amberText}>{a.vehicleId}</span>
-                              </td>
-                              <td>
-                                <span className={styles.wheelBadge}>{a.wheel}</span>
-                              </td>
-                              <td>
-                                <span className={styles.dateText}>{a.date}</span>
-                              </td>
-                              <td>
-                                {a.alarm === "Alert" ? (
-                                  <span className={styles.tablePillAlert}>Alert</span>
-                                ) : (
-                                  <span className={styles.tablePillWarn}>Warning</span>
-                                )}
-                              </td>
-                              <td>
-                                <span className={styles.paramText}>{a.parameter}</span>
-                              </td>
-                              <td>
-                                <span className={styles.monoValue}>{a.value}</span>
-                              </td>
-                              <td>
-                                <span className={styles.monoValueMuted}>{a.threshold}</span>
-                              </td>
-                              <td>
-                                <button
-                                  onClick={() => handleAcknowledge(a.id)}
-                                  className={
-                                    a.status === "Acknowledged"
-                                      ? styles.ackPillDone
-                                      : styles.ackPillPending
-                                  }
-                                  title="Click to acknowledge alarm"
-                                >
-                                  {a.status}
-                                </button>
-                              </td>
-                              <td>
-                                <span className={styles.mutedDash}>{a.assignedTo}</span>
-                              </td>
-                              <td>
-                                <span className={styles.mutedDash}>{a.remark}</span>
-                              </td>
-                              <td>
-                                <button className={styles.moreActionBtn}>
-                                  <MoreHorizontal size={15} />
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    {/* Pagination Bar */}
-                    <div className={styles.paginationBar}>
-                      <span className={styles.paginationTotal}>
-                        Total: {filteredAlarms.length} Records
-                      </span>
-                      <div className={styles.paginationControls}>
-                        <span className={styles.recordsPerPage}>100 Records per page v</span>
-                        <div className={styles.pageButtons}>
-                          <button className={styles.pageArrow}><ChevronsLeft size={13} /></button>
-                          <button className={styles.pageArrow}><ChevronLeft size={13} /></button>
-                          <span className={styles.pageNum}>1 of 19</span>
-                          <button className={styles.pageArrow}><ChevronRight size={13} /></button>
-                          <button className={styles.pageArrow}><ChevronsRight size={13} /></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* =========================================================
-                    VIEW 3: VEHICLE ANALYSIS (MATCHING datamap-vehicle-detail)
-                    ========================================================= */}
-                {activeModule === "vehicles" && (
-                  <div className={styles.workspaceWrapper}>
-                    {/* Sub-Header */}
-                    <div className={styles.subHeaderBar}>
-                      <div className={styles.subHeaderLeft}>
-                        <h3 className={styles.moduleTitle}>Vehicle Analysis</h3>
-                      </div>
-                      <div className={styles.subHeaderRight}>
-                        <div className={styles.controlPill}>
-                          <span className={styles.controlLabel}>Parameters: Wheel Profile</span>
-                          <ChevronDown size={13} className={styles.mutedChevron} />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Compare Radio Options & View Profile Button */}
-                    <div className={styles.vehicleCompareBar}>
-                      <span className={styles.compareLabel}>Compare:</span>
-                      {[
-                        "Companion Wheel",
-                        "Any Wheel on Same Vehicle",
-                        "Wheel Standards",
-                        "Previous passes",
-                      ].map((opt) => (
-                        <label key={opt} className={styles.radioLabel}>
-                          <input
-                            type="radio"
-                            name="compareRadio"
-                            checked={compareOption === opt}
-                            onChange={() => setCompareOption(opt)}
-                            className={styles.radioInput}
-                          />
-                          <span className={styles.radioText}>{opt}</span>
-                        </label>
-                      ))}
-
-                      <button className={styles.viewProfileBtn}>
-                        <RefreshCw size={13} />
-                        <span>View Wheel Profile</span>
-                      </button>
-                    </div>
-
-                    {/* Wheel Selector Button Strip (L1, R1, L2, R2...) */}
-                    <div className={styles.wheelStrip}>
-                      {WHEEL_OPTIONS.map((w) => {
-                        const isSelected = selectedWheel === w;
-                        const isCompanion = getCompanionWheel(selectedWheel) === w;
-                        return (
-                          <button
-                            key={w}
-                            onClick={() => setSelectedWheel(w)}
-                            className={`${styles.wheelBtn} ${
-                              isSelected
-                                ? styles.wheelBtnActive
-                                : isCompanion
-                                ? styles.wheelBtnCompanion
-                                : ""
-                            }`}
-                          >
-                            <span>{w}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Main Interactive Diagram & Chart Grid */}
-                    <div className={styles.vehicleChartGrid}>
-                      {/* Left: Railcar Bogie Schematic (Select a Wheel) */}
-                      <div className={styles.bogieSchematicCard}>
-                        <div className={styles.bogieHeading}>Select a Wheel</div>
-                        <div className={styles.bogieFrame}>
-                          {/* Railcar Schematic Top-Down Vector */}
-                          <svg viewBox="0 0 120 280" className={styles.bogieSvg}>
-                            {/* Railcar Body Center */}
-                            <rect
-                              x="44"
-                              y="20"
-                              width="32"
-                              height="240"
-                              rx="6"
-                              fill="#262626"
-                              stroke="#404040"
-                              strokeWidth="1.5"
-                            />
-                            {/* Axle 1 */}
-                            <line x1="20" y1="45" x2="100" y2="45" stroke="#0284c7" strokeWidth="3" />
-                            <rect
-                              x="12"
-                              y="30"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "L1" ? "#38bdf8" : "#525252"}
-                              stroke="#0284c7"
-                              strokeWidth="1.5"
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("L1")}
-                            />
-                            <rect
-                              x="96"
-                              y="30"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "R1" ? "#38bdf8" : "#ea580c"}
-                              stroke="#ea580c"
-                              strokeWidth="1.5"
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("R1")}
-                            />
-
-                            {/* Axle 2 */}
-                            <line x1="20" y1="85" x2="100" y2="85" stroke="#525252" strokeWidth="2" />
-                            <rect
-                              x="12"
-                              y="70"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "L2" ? "#38bdf8" : "#404040"}
-                              stroke="#525252"
-                              strokeWidth="1"
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("L2")}
-                            />
-                            <rect
-                              x="96"
-                              y="70"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "R2" ? "#38bdf8" : "#404040"}
-                              stroke="#525252"
-                              strokeWidth="1"
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("R2")}
-                            />
-
-                            {/* Axle 3 */}
-                            <line x1="20" y1="125" x2="100" y2="125" stroke="#525252" strokeWidth="2" />
-                            <rect
-                              x="12"
-                              y="110"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "L3" ? "#38bdf8" : "#404040"}
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("L3")}
-                            />
-                            <rect
-                              x="96"
-                              y="110"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "R3" ? "#38bdf8" : "#404040"}
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("R3")}
-                            />
-
-                            {/* Center Bolster */}
-                            <rect x="36" y="145" width="48" height="30" rx="4" fill="#333333" />
-
-                            {/* Axle 4 */}
-                            <line x1="20" y1="195" x2="100" y2="195" stroke="#525252" strokeWidth="2" />
-                            <rect
-                              x="12"
-                              y="180"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "L4" ? "#38bdf8" : "#404040"}
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("L4")}
-                            />
-                            <rect
-                              x="96"
-                              y="180"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "R4" ? "#38bdf8" : "#404040"}
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("R4")}
-                            />
-
-                            {/* Axle 5 */}
-                            <line x1="20" y1="235" x2="100" y2="235" stroke="#525252" strokeWidth="2" />
-                            <rect
-                              x="12"
-                              y="220"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "L5" ? "#38bdf8" : "#404040"}
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("L5")}
-                            />
-                            <rect
-                              x="96"
-                              y="220"
-                              width="12"
-                              height="30"
-                              rx="3"
-                              fill={selectedWheel === "R5" ? "#38bdf8" : "#404040"}
-                              cursor="pointer"
-                              onClick={() => setSelectedWheel("R5")}
-                            />
-                          </svg>
-                        </div>
-                        <div className={styles.bogieLegend}>
-                          <span className={styles.cyanDot}>●</span>
-                          <span>Primary ({selectedWheel})</span>
-                          <span className={styles.amberDot}>●</span>
-                          <span>Companion ({getCompanionWheel(selectedWheel)})</span>
-                        </div>
+                      {/* Wheel Selector Button Strip (L1, R1, L2, R2...) with micro-animations */}
+                      <div className={styles.wheelStrip}>
+                        {WHEEL_OPTIONS.map((w) => {
+                          const isSelected = selectedWheel === w;
+                          const isCompanion = getCompanionWheel(selectedWheel) === w;
+                          return (
+                            <motion.button
+                              key={w}
+                              onClick={() => setSelectedWheel(w)}
+                              className={`${styles.wheelBtn} ${
+                                isSelected
+                                  ? styles.wheelBtnActive
+                                  : isCompanion
+                                  ? styles.wheelBtnCompanion
+                                  : ""
+                              }`}
+                              whileHover={{ scale: 1.08 }}
+                              whileTap={{ scale: 0.92 }}
+                            >
+                              <span>{w}</span>
+                            </motion.button>
+                          );
+                        })}
                       </div>
 
-                      {/* Right: High-Precision Coordinate Profile Chart */}
-                      <div className={styles.profileChartCard}>
-                        {/* Legend */}
-                        <div className={styles.chartLegendRow}>
-                          <div className={styles.legendItem}>
+                      {/* Main Interactive Diagram & Chart Grid */}
+                      <div className={styles.vehicleChartGrid}>
+                        {/* Left: Railcar Bogie Schematic (Select a Wheel) */}
+                        <div className={styles.bogieSchematicCard}>
+                          <div className={styles.bogieHeading}>Select a Wheel</div>
+                          <div className={styles.bogieFrame}>
+                            {/* Railcar Schematic Top-Down Vector */}
+                            <svg viewBox="0 0 120 280" className={styles.bogieSvg}>
+                              {/* Railcar Body Center */}
+                              <rect
+                                x="44"
+                                y="20"
+                                width="32"
+                                height="240"
+                                rx="6"
+                                fill="#262626"
+                                stroke="#404040"
+                                strokeWidth="1.5"
+                              />
+                              {/* Axle 1 */}
+                              <line x1="20" y1="45" x2="100" y2="45" stroke="#0284c7" strokeWidth="3" />
+                              <rect
+                                x="12"
+                                y="30"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "L1" ? "#38bdf8" : "#525252"}
+                                stroke={selectedWheel === "L1" ? "#38bdf8" : "#0284c7"}
+                                strokeWidth={selectedWheel === "L1" ? "2.5" : "1.5"}
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("L1")}
+                              />
+                              <rect
+                                x="96"
+                                y="30"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "R1" ? "#38bdf8" : "#ea580c"}
+                                stroke="#ea580c"
+                                strokeWidth={selectedWheel === "R1" ? "2.5" : "1.5"}
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("R1")}
+                              />
+
+                              {/* Axle 2 */}
+                              <line x1="20" y1="85" x2="100" y2="85" stroke="#525252" strokeWidth="2" />
+                              <rect
+                                x="12"
+                                y="70"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "L2" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "L2" ? "#38bdf8" : "#525252"}
+                                strokeWidth={selectedWheel === "L2" ? "2.5" : "1"}
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("L2")}
+                              />
+                              <rect
+                                x="96"
+                                y="70"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "R2" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "R2" ? "#38bdf8" : "#525252"}
+                                strokeWidth={selectedWheel === "R2" ? "2.5" : "1"}
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("R2")}
+                              />
+
+                              {/* Axle 3 */}
+                              <line x1="20" y1="125" x2="100" y2="125" stroke="#525252" strokeWidth="2" />
+                              <rect
+                                x="12"
+                                y="110"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "L3" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "L3" ? "#38bdf8" : "none"}
+                                strokeWidth="2"
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("L3")}
+                              />
+                              <rect
+                                x="96"
+                                y="110"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "R3" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "R3" ? "#38bdf8" : "none"}
+                                strokeWidth="2"
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("R3")}
+                              />
+
+                              {/* Center Bolster */}
+                              <rect x="36" y="145" width="48" height="30" rx="4" fill="#333333" />
+
+                              {/* Axle 4 */}
+                              <line x1="20" y1="195" x2="100" y2="195" stroke="#525252" strokeWidth="2" />
+                              <rect
+                                x="12"
+                                y="180"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "L4" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "L4" ? "#38bdf8" : "none"}
+                                strokeWidth="2"
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("L4")}
+                              />
+                              <rect
+                                x="96"
+                                y="180"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "R4" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "R4" ? "#38bdf8" : "none"}
+                                strokeWidth="2"
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("R4")}
+                              />
+
+                              {/* Axle 5 */}
+                              <line x1="20" y1="235" x2="100" y2="235" stroke="#525252" strokeWidth="2" />
+                              <rect
+                                x="12"
+                                y="220"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "L5" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "L5" ? "#38bdf8" : "none"}
+                                strokeWidth="2"
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("L5")}
+                              />
+                              <rect
+                                x="96"
+                                y="220"
+                                width="12"
+                                height="30"
+                                rx="3"
+                                fill={selectedWheel === "R5" ? "#38bdf8" : "#404040"}
+                                stroke={selectedWheel === "R5" ? "#38bdf8" : "none"}
+                                strokeWidth="2"
+                                cursor="pointer"
+                                onClick={() => setSelectedWheel("R5")}
+                              />
+                            </svg>
+                          </div>
+                          <div className={styles.bogieLegend}>
                             <span className={styles.cyanDot}>●</span>
-                            <span>{selectedWheel} Primary Wheel</span>
-                          </div>
-                          <div className={styles.legendItem}>
+                            <span>Primary ({selectedWheel})</span>
                             <span className={styles.amberDot}>●</span>
-                            <span>{getCompanionWheel(selectedWheel)} Companion Wheel</span>
+                            <span>Companion ({getCompanionWheel(selectedWheel)})</span>
                           </div>
                         </div>
 
-                        {/* Interactive SVG Coordinate Grid */}
-                        <div className={styles.coordinateGridCanvas}>
-                          <svg
-                            viewBox="0 0 580 280"
-                            className={styles.coordSvg}
-                            preserveAspectRatio="none"
-                          >
-                            <defs>
-                              <pattern
-                                id="gridPattern"
-                                width="58"
-                                height="28"
-                                patternUnits="userSpaceOnUse"
-                              >
-                                <path
-                                  d="M 58 0 L 0 0 0 28"
-                                  fill="none"
-                                  stroke="#262626"
-                                  strokeWidth="0.8"
-                                />
-                              </pattern>
-                            </defs>
+                        {/* Right: High-Precision Coordinate Profile Chart with Laser Scanner Beam */}
+                        <div className={styles.profileChartCard}>
+                          {/* Legend & Laser Scan Toggle */}
+                          <div className={styles.chartLegendRow}>
+                            <motion.button
+                              onClick={() => setLaserScanning(!laserScanning)}
+                              className={`${styles.laserScanToggleBtn} ${laserScanning ? styles.laserScanToggleBtnActive : ""}`}
+                              whileHover={{ scale: 1.04 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <span className={styles.laserPulseDot} />
+                              <span>{laserScanning ? "Laser Scan Active" : "Resume Laser Sweep"}</span>
+                            </motion.button>
 
-                            {/* Background Grid */}
-                            <rect width="580" height="280" fill="url(#gridPattern)" />
-
-                            {/* Zero Axis Line */}
-                            <line
-                              x1="40"
-                              y1="140"
-                              x2="560"
-                              y2="140"
-                              stroke="#404040"
-                              strokeWidth="1.5"
-                            />
-
-                            {/* Y-Axis Coordinate Labels */}
-                            <text x="12" y="35" fill="#737373" fontSize="10">40.00</text>
-                            <text x="12" y="88" fill="#737373" fontSize="10">20.00</text>
-                            <text x="18" y="143" fill="#737373" fontSize="10">0.00</text>
-                            <text x="6" y="195" fill="#737373" fontSize="10">-20.00</text>
-                            <text x="6" y="248" fill="#737373" fontSize="10">-40.00</text>
-
-                            {/* X-Axis Coordinate Labels */}
-                            <text x="50" y="272" fill="#737373" fontSize="10">0.00</text>
-                            <text x="210" y="272" fill="#737373" fontSize="10">50.00</text>
-                            <text x="370" y="272" fill="#737373" fontSize="10">100.00</text>
-                            <text x="520" y="272" fill="#737373" fontSize="10">150.00</text>
-
-                            {/* Overlaid Profile Curves */}
-                            {/* Curve 1: Primary Wheel (Cyan #38bdf8) */}
-                            <path
-                              d="M 60,260 L 60,80 C 60,60 85,50 100,52 C 115,54 125,75 140,110 C 160,140 220,148 300,150 C 380,152 460,154 480,165 C 495,175 498,210 498,260"
-                              fill="none"
-                              stroke="#38bdf8"
-                              strokeWidth="2.8"
-                            />
-
-                            {/* Curve 2: Companion Wheel (Amber #ea580c) */}
-                            <path
-                              d="M 60,260 L 60,84 C 60,64 85,53 100,55 C 115,57 125,79 140,112 C 160,142 220,150 300,152 C 380,154 460,156 480,168 C 495,178 498,212 498,260"
-                              fill="none"
-                              stroke="#ea580c"
-                              strokeWidth="2"
-                              strokeDasharray="4 2"
-                            />
-                          </svg>
-                        </div>
-
-                        {/* Geometry Measurement Points */}
-                        <div className={styles.geometryReadouts}>
-                          <div className={styles.readoutItem}>
-                            <span className={styles.readoutLabel}>Flange Height</span>
-                            <span className={styles.readoutVal}>28.4 mm (1.12 in)</span>
+                            <div className={styles.legendItem}>
+                              <span className={styles.cyanDot}>●</span>
+                              <span>{selectedWheel} Primary Wheel</span>
+                            </div>
+                            <div className={styles.legendItem}>
+                              <span className={styles.amberDot}>●</span>
+                              <span>{getCompanionWheel(selectedWheel)} Companion Wheel</span>
+                            </div>
                           </div>
-                          <div className={styles.readoutItem}>
-                            <span className={styles.readoutLabel}>Flange Thickness</span>
-                            <span className={styles.readoutVal}>22.1 mm (0.87 in)</span>
+
+                          {/* Interactive SVG Coordinate Grid with Animated Laser Sweep Beam */}
+                          <div className={styles.coordinateGridCanvas}>
+                            <svg
+                              viewBox="0 0 580 280"
+                              className={styles.coordSvg}
+                              preserveAspectRatio="none"
+                            >
+                              <defs>
+                                <pattern
+                                  id="gridPattern"
+                                  width="58"
+                                  height="28"
+                                  patternUnits="userSpaceOnUse"
+                                >
+                                  <path
+                                    d="M 58 0 L 0 0 0 28"
+                                    fill="none"
+                                    stroke="#262626"
+                                    strokeWidth="0.8"
+                                  />
+                                </pattern>
+
+                                <filter id="laserBeamGlow" x="-30%" y="-30%" width="160%" height="160%">
+                                  <feGaussianBlur stdDeviation="3.5" result="blur" />
+                                  <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                  </feMerge>
+                                </filter>
+                              </defs>
+
+                              {/* Background Grid */}
+                              <rect width="580" height="280" fill="url(#gridPattern)" />
+
+                              {/* Zero Axis Line */}
+                              <line
+                                x1="40"
+                                y1="140"
+                                x2="560"
+                                y2="140"
+                                stroke="#404040"
+                                strokeWidth="1.5"
+                              />
+
+                              {/* Y-Axis Coordinate Labels */}
+                              <text x="12" y="35" fill="#737373" fontSize="10">40.00</text>
+                              <text x="12" y="88" fill="#737373" fontSize="10">20.00</text>
+                              <text x="18" y="143" fill="#737373" fontSize="10">0.00</text>
+                              <text x="6" y="195" fill="#737373" fontSize="10">-20.00</text>
+                              <text x="6" y="248" fill="#737373" fontSize="10">-40.00</text>
+
+                              {/* X-Axis Coordinate Labels */}
+                              <text x="50" y="272" fill="#737373" fontSize="10">0.00</text>
+                              <text x="210" y="272" fill="#737373" fontSize="10">50.00</text>
+                              <text x="370" y="272" fill="#737373" fontSize="10">100.00</text>
+                              <text x="520" y="272" fill="#737373" fontSize="10">150.00</text>
+
+                              {/* Overlaid Profile Curves */}
+                              {/* Curve 1: Primary Wheel (Cyan #38bdf8) */}
+                              <path
+                                d="M 60,260 L 60,80 C 60,60 85,50 100,52 C 115,54 125,75 140,110 C 160,140 220,148 300,150 C 380,152 460,154 480,165 C 495,175 498,210 498,260"
+                                fill="none"
+                                stroke="#38bdf8"
+                                strokeWidth="2.8"
+                              />
+
+                              {/* Curve 2: Companion Wheel (Amber #ea580c) */}
+                              <path
+                                d="M 60,260 L 60,84 C 60,64 85,53 100,55 C 115,57 125,79 140,112 C 160,142 220,150 300,152 C 380,154 460,156 480,168 C 495,178 498,212 498,260"
+                                fill="none"
+                                stroke="#ea580c"
+                                strokeWidth="2"
+                                strokeDasharray="4 2"
+                              />
+
+                              {/* COOL FEATURE: Real-time sweeping laser beam line with glow effect */}
+                              {laserScanning && (
+                                <g className={styles.laserSweepBeam}>
+                                  <line
+                                    x1="0"
+                                    y1="25"
+                                    x2="0"
+                                    y2="255"
+                                    stroke="#38bdf8"
+                                    strokeWidth="2.5"
+                                    filter="url(#laserBeamGlow)"
+                                  />
+                                  <circle cx="0" cy="140" r="4.5" fill="#38bdf8" filter="url(#laserBeamGlow)" />
+                                  <circle cx="0" cy="140" r="2" fill="#ffffff" />
+                                </g>
+                              )}
+                            </svg>
                           </div>
-                          <div className={styles.readoutItem}>
-                            <span className={styles.readoutLabel}>Tread Hollow</span>
-                            <span className={styles.readoutVal}>1.2 mm (0.05 in)</span>
-                          </div>
-                          <div className={styles.readoutItem}>
-                            <span className={styles.readoutLabel}>Back-to-Back</span>
-                            <span className={styles.readoutVal}>1599.8 mm (62.98 in)</span>
+
+                          {/* Geometry Measurement Points */}
+                          <div className={styles.geometryReadouts}>
+                            <div className={styles.readoutItem}>
+                              <span className={styles.readoutLabel}>Flange Height</span>
+                              <span className={styles.readoutVal}>28.4 mm (1.12 in)</span>
+                            </div>
+                            <div className={styles.readoutItem}>
+                              <span className={styles.readoutLabel}>Flange Thickness</span>
+                              <span className={styles.readoutVal}>22.1 mm (0.87 in)</span>
+                            </div>
+                            <div className={styles.readoutItem}>
+                              <span className={styles.readoutLabel}>Tread Hollow</span>
+                              <span className={styles.readoutVal}>1.2 mm (0.05 in)</span>
+                            </div>
+                            <div className={styles.readoutItem}>
+                              <span className={styles.readoutLabel}>Back-to-Back</span>
+                              <span className={styles.readoutVal}>1599.8 mm (62.98 in)</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
 
-                {/* =========================================================
-                    VIEW 4: SETTINGS & OPEN APIS
-                    ========================================================= */}
-                {activeModule === "settings" && (
-                  <div className={styles.workspaceWrapper}>
-                    <div className={styles.subHeaderBar}>
-                      <h3 className={styles.moduleTitle}>REST & MQTT Telemetry Gateways</h3>
-                    </div>
+                  {/* =========================================================
+                      VIEW 4: SETTINGS & OPEN APIS
+                      ========================================================= */}
+                  {activeModule === "settings" && (
+                    <motion.div
+                      key="settings"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                      className={styles.workspaceWrapper}
+                    >
+                      <div className={styles.subHeaderBar}>
+                        <h3 className={styles.moduleTitle}>REST & MQTT Telemetry Gateways</h3>
+                      </div>
 
-                    <div className={styles.settingsGrid}>
-                      <div className={styles.apiCard}>
-                        <h4>Live Webhook Event Payload</h4>
-                        <pre className={styles.jsonBox}>
+                      <div className={styles.settingsGrid}>
+                        <div className={styles.apiCard}>
+                          <h4>Live Webhook Event Payload</h4>
+                          <pre className={styles.jsonBox}>
 {`{
   "event_id": "EVT-2026-99410",
   "station_code": "SPACELABS-WS-01",
@@ -1395,33 +1553,34 @@ const DataMap = () => {
     }
   ]
 }`}
-                        </pre>
-                      </div>
+                          </pre>
+                        </div>
 
-                      <div className={styles.apiCard}>
-                        <h4>Station Health Telemetry</h4>
-                        <div className={styles.healthTelemetryList}>
-                          <div className={styles.healthRow}>
-                            <span>Air Purge Pressure</span>
-                            <strong className={styles.okText}>7.4 BAR (NOMINAL)</strong>
-                          </div>
-                          <div className={styles.healthRow}>
-                            <span>Laser Optic Transparency</span>
-                            <strong className={styles.okText}>99.6% (CLEAN)</strong>
-                          </div>
-                          <div className={styles.healthRow}>
-                            <span>Edge Gateway Latency</span>
-                            <strong className={styles.okText}>84 ms</strong>
-                          </div>
-                          <div className={styles.healthRow}>
-                            <span>Wayside Power Reserve</span>
-                            <strong className={styles.okText}>230V AC (UPS 4.5h)</strong>
+                        <div className={styles.apiCard}>
+                          <h4>Station Health Telemetry</h4>
+                          <div className={styles.healthTelemetryList}>
+                            <div className={styles.healthRow}>
+                              <span>Air Purge Pressure</span>
+                              <strong className={styles.okText}>7.4 BAR (NOMINAL)</strong>
+                            </div>
+                            <div className={styles.healthRow}>
+                              <span>Laser Optic Transparency</span>
+                              <strong className={styles.okText}>99.6% (CLEAN)</strong>
+                            </div>
+                            <div className={styles.healthRow}>
+                              <span>Edge Gateway Latency</span>
+                              <strong className={styles.okText}>84 ms</strong>
+                            </div>
+                            <div className={styles.healthRow}>
+                              <span>Wayside Power Reserve</span>
+                              <strong className={styles.okText}>230V AC (UPS 4.5h)</strong>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </main>
             </div>
           </div>
@@ -1443,8 +1602,16 @@ const DataMap = () => {
           </div>
 
           <div className={styles.sensorsGrid}>
-            {CONNECTED_SENSORS.map((s) => (
-              <div key={s.id} className={styles.sensorItemCard}>
+            {CONNECTED_SENSORS.map((s, idx) => (
+              <motion.div
+                key={s.id}
+                className={styles.sensorItemCard}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.1 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              >
                 <div className={styles.sensorImgFrame}>
                   <img src={s.image} alt={s.title} className={styles.sensorItemImg} />
                   <span className={styles.sensorItemTag}>{s.tag}</span>
@@ -1458,7 +1625,7 @@ const DataMap = () => {
                     <ArrowRight size={14} />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -1467,7 +1634,13 @@ const DataMap = () => {
       {/* Direct Engineering Consultation CTA */}
       <section className={styles.bottomCtaSection}>
         <div className={styles.container}>
-          <div className={styles.bottomCtaBox}>
+          <motion.div
+            className={styles.bottomCtaBox}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+          >
             <div className={styles.ctaTextCol}>
               <h3 className={styles.ctaHeading}>Deploy DataMAP™ Across Your Rail Network</h3>
               <p className={styles.ctaSubtitle}>
@@ -1475,12 +1648,14 @@ const DataMap = () => {
               </p>
             </div>
             <div className={styles.ctaBtnCol}>
-              <Link to="/contact" className={styles.ctaWhiteBtn}>
-                <span>Request Technical Consultation</span>
-                <ArrowRight size={15} />
-              </Link>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link to="/contact" className={styles.ctaWhiteBtn}>
+                  <span>Request Technical Consultation</span>
+                  <ArrowRight size={15} />
+                </Link>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

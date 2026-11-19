@@ -1,4 +1,4 @@
-/* DataMAP Dedicated Page Stylesheet - Pixel-Perfect Software Console */
+/* DataMAP Dedicated Page Stylesheet - High-Tech Animated Edition */
 
 .pageWrapper {
   background-color: #fafaf9;
@@ -55,7 +55,7 @@
   background-color: #0b0a09;
   color: #ffffff;
   border-bottom: 1px solid #1e293b;
-  padding: 64px 0 56px;
+  padding: 68px 0 60px;
   overflow: hidden;
 }
 
@@ -71,7 +71,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.4;
+  opacity: 0.42;
 }
 
 .heroScrim {
@@ -84,6 +84,39 @@
     rgba(11, 10, 9, 0.6) 80%,
     rgba(11, 10, 9, 0.3) 100%
   );
+}
+
+/* Floating Ambient Orbs */
+.ambientGlowOrb1 {
+  position: absolute;
+  top: -60px;
+  right: 15%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  animation: floatOrb 8s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+.ambientGlowOrb2 {
+  position: absolute;
+  bottom: -80px;
+  left: 10%;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+  animation: floatOrb 10s ease-in-out infinite alternate-reverse;
+  z-index: 1;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, -15px) scale(1.08); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
 }
 
 .badgeRow {
@@ -133,6 +166,13 @@
   background-color: #10b981;
   border-radius: 50%;
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+  animation: livePulseAnim 2s infinite;
+}
+
+@keyframes livePulseAnim {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
 .title {
@@ -174,15 +214,14 @@
   font-weight: 700;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.35);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
   transition: all 0.2s ease;
 }
 
 .primaryActionBtn:hover {
   background-color: #c2410c;
   color: #ffffff !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.45);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.55);
 }
 
 .secondaryActionBtn {
@@ -238,13 +277,19 @@
 .metricCard {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 20px 22px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metricCard:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
 .metricValue {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 800;
   color: #0f172a;
   letter-spacing: -0.02em;
@@ -349,7 +394,7 @@
   background-color: #0c0a09;
   border: 1px solid #262626;
   border-radius: 16px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.05);
   overflow: hidden;
   color: #ffffff;
 }
@@ -369,6 +414,7 @@
 .softwareLogoBox {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .softwareLogoText {
@@ -376,6 +422,61 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #ffffff;
+}
+
+.softwareLogoBadge {
+  font-size: 0.65rem;
+  font-family: monospace;
+  font-weight: 700;
+  color: #ea580c;
+  background-color: rgba(234, 88, 12, 0.15);
+  border: 1px solid rgba(234, 88, 12, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Radar Scanner HUD */
+.radarStatusPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1a1816;
+  border: 1px solid #2a2623;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  position: relative;
+}
+
+.radarPingCircle {
+  position: absolute;
+  left: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  animation: radarRingAnim 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@keyframes radarRingAnim {
+  0% { transform: scale(1); opacity: 0.8; }
+  70% { transform: scale(2.8); opacity: 0; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+.radarLiveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.radarText {
+  font-size: 0.68rem;
+  font-family: monospace;
+  font-weight: 700;
+  color: #a3e635;
+  letter-spacing: 0.04em;
 }
 
 .softwareTopControls {
@@ -396,6 +497,11 @@
   font-size: 0.78rem;
   color: #e5e5e5;
   cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.controlPill:hover {
+  border-color: #ea580c;
 }
 
 .amberPin {
@@ -458,6 +564,7 @@
   padding: 1px 4px;
   border-radius: 9999px;
   line-height: 1;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
 }
 
 .avatarPill {
@@ -515,6 +622,7 @@
   background-color: rgba(234, 88, 12, 0.15) !important;
   color: #ea580c !important;
   border: 1px solid rgba(234, 88, 12, 0.3);
+  box-shadow: 0 0 12px rgba(234, 88, 12, 0.2);
 }
 
 .softwareMainArea {
@@ -605,6 +713,7 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
 }
 
 .exportsBtn:hover {
@@ -727,6 +836,11 @@
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.moreFiltersBtn:hover {
+  background-color: rgba(234, 88, 12, 0.15);
 }
 
 .viewToggleGroup {
@@ -943,6 +1057,7 @@
   border-radius: 4px;
   font-size: 0.72rem;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .ackPillPending:hover {
@@ -957,6 +1072,7 @@
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 0.72rem;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.25);
 }
 
 .mutedDash {
@@ -1097,6 +1213,7 @@
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
 }
 
 /* =========================================================================
@@ -1178,7 +1295,7 @@
   background-color: rgba(2, 132, 199, 0.15) !important;
   border-color: #0284c7 !important;
   color: #38bdf8 !important;
-  box-shadow: 0 0 10px rgba(2, 132, 199, 0.3);
+  box-shadow: 0 0 14px rgba(2, 132, 199, 0.45);
 }
 
 .wheelBtnCompanion {
@@ -1254,17 +1371,56 @@
 
 .chartLegendRow {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
   gap: 16px;
-  margin-bottom: 10px;
-  font-size: 0.75rem;
-  color: #a3a3a3;
+  flex-wrap: wrap;
+}
+
+/* Laser Scan Toggle Button */
+.laserScanToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background-color: #171513;
+  border: 1px solid #262626;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #737373;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.laserScanToggleBtnActive {
+  background-color: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+.laserPulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+  animation: laserPulseAnim 1.4s infinite;
+}
+
+@keyframes laserPulseAnim {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.6; }
 }
 
 .legendItem {
   display: flex;
   align-items: center;
   gap: 6px;
+  font-size: 0.75rem;
+  color: #a3a3a3;
 }
 
 .coordinateGridCanvas {
@@ -1273,12 +1429,26 @@
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
 }
 
 .coordSvg {
   width: 100%;
   height: 260px;
   display: block;
+}
+
+/* Real-Time Laser Sweep Animation across profile */
+.laserSweepBeam {
+  animation: laserSweepMove 4s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+@keyframes laserSweepMove {
+  0% { transform: translateX(60px); opacity: 0.35; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(490px); opacity: 0.35; }
 }
 
 .geometryReadouts {
@@ -1295,6 +1465,12 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.readoutItem:hover {
+  transform: translateY(-1px);
+  border-color: #38bdf8;
 }
 
 .readoutLabel {
@@ -1399,13 +1575,12 @@
   background-color: #fafaf9;
   display: flex;
   flex-direction: column;
-  transition: all 0.2s ease;
+  transition: all 0.22s ease;
 }
 
 .sensorItemCard:hover {
-  transform: translateY(-2px);
   border-color: #cbd5e1;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 .sensorImgFrame {
@@ -1420,6 +1595,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.sensorItemCard:hover .sensorItemImg {
+  transform: scale(1.04);
 }
 
 .sensorItemTag {
@@ -1479,11 +1659,12 @@
   font-weight: 700;
   color: #0f172a;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .sensorItemLink:hover {
   color: #ea580c;
+  transform: translateX(3px);
 }
 
 /* Bottom CTA Banner */
@@ -1539,7 +1720,6 @@
 .ctaWhiteBtn:hover {
   background-color: #c2410c;
   color: #ffffff !important;
-  transform: translateY(-1px);
 }
 
 /* Responsive adjustments */

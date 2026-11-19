@@ -301,12 +301,17 @@ const FeaturedSystems = () => {
           </AnimatePresence>
         </div>
 
-        {/* Bottom Catalog Link */}
+        {/* Bottom Catalog & Software Navigation Links */}
         <div className={styles.catalogFooter}>
           <Link to="/products" className={styles.allProductsLink}>
-            <span>View Complete 5-System Matrix & Parametric Comparison</span>
+            <span>View Complete 5-System Matrix & Specifications</span>
             <ExternalLink size={15} />
           </Link>
+
+          <a href="#datamap-section" className={styles.allProductsLink} style={{ marginLeft: "14px" }}>
+            <span>Explore DataMAP™ Software Platform</span>
+            <ArrowRight size={15} />
+          </a>
         </div>
       </div>
     </section>

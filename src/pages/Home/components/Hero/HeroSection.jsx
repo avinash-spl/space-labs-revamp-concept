@@ -107,26 +107,24 @@ const HeroSection = () => {
 
           {/* Fluid Action CTA Group */}
           <div className={styles.ctaGroup}>
-            <button
-              onClick={() => scrollToSection("products-section")}
-              className={styles.primaryBtn}
-            >
+            <Link to="/products" className={styles.primaryBtn}>
               <span>Explore Systems</span>
               <ArrowRight size={17} />
-            </button>
+            </Link>
+
+            <Link to="/datamap" className={styles.secondaryBtn}>
+              <Sparkles size={16} />
+              <span>DataMAP™ Software</span>
+            </Link>
 
             <a
               href="/assets/AWPMS Technical Brochure - Space.pdf"
               download="SpaceLabs_AWPMS_Brochure.pdf"
-              className={styles.secondaryBtn}
+              className={styles.outlineBtn}
             >
               <Download size={16} />
-              <span>Technical Brochure (PDF)</span>
+              <span>Brochure (PDF)</span>
             </a>
-
-            <Link to="/contact" className={styles.outlineBtn}>
-              <span>Request RFQ / Demo</span>
-            </Link>
           </div>
         </motion.div>
 

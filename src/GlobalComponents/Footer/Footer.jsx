@@ -62,6 +62,9 @@ const Footer = () => {
               <li>
                 <Link to="/product5">Aerial Railway Inspection</Link>
               </li>
+              <li>
+                <Link to="/datamap">DataMAP™ Software Suite</Link>
+              </li>
             </ul>
           </div>
 
@@ -70,13 +73,13 @@ const Footer = () => {
             <h4 className={styles.colTitle}>STUDIO & TALENT</h4>
             <ul className={styles.linkList}>
               <li>
-                <Link to="/#who-we-are">Who We Are</Link>
+                <Link to="/about">About Space Labs</Link>
               </li>
               <li>
-                <Link to="/#capabilities">Engineering Principles</Link>
+                <Link to="/about">Engineering Charter</Link>
               </li>
               <li>
-                <Link to="/#team">Leadership Team</Link>
+                <Link to="/about">Leadership & Team</Link>
               </li>
               <li>
                 <Link to="/careers">Careers & Open Roles</Link>

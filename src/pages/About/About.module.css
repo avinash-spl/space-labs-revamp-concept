@@ -1,0 +1,476 @@
+/* About / Studio & Principles Page Stylesheet */
+
+.pageWrapper {
+  background-color: #fafaf9;
+  min-height: 100vh;
+  color: #0f172a;
+  padding-bottom: 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Breadcrumbs */
+.breadcrumbBar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 0;
+  margin-top: 76px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.crumbLink {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.crumbLink:hover {
+  color: #ea580c;
+}
+
+.crumbSep {
+  color: #cbd5e1;
+}
+
+.crumbCurrent {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Hero Section */
+.heroSection {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 56px 0 48px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+.tagIcon {
+  color: #ea580c;
+}
+
+.title {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+}
+
+.titleAccent {
+  color: #ea580c;
+}
+
+.subtitle {
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+  color: #475569;
+  max-width: 840px;
+}
+
+/* Reusable Section Headers */
+.sectionHeaderBox {
+  margin-bottom: 36px;
+}
+
+.sectionTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ea580c;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.sectionSubtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 720px;
+}
+
+/* Methodology Section */
+.methodologySection {
+  padding: 64px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.methodologyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.methodologyCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 28px 24px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.methodologyCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+  border-color: #cbd5e1;
+}
+
+.phaseBadge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 0.7rem;
+  font-family: monospace;
+  font-weight: 700;
+  color: #ea580c;
+  background-color: #fff7ed;
+  border: 1px solid #fed7aa;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.phaseIconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.phaseTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.phaseSubtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ea580c;
+  margin-bottom: 14px;
+}
+
+.phaseDesc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0;
+}
+
+/* Principles Section */
+.principlesSection {
+  padding: 64px 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.principlesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.principleCard {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 24px 20px;
+  background-color: #fafaf9;
+}
+
+.principleIndex {
+  font-size: 0.85rem;
+  font-family: monospace;
+  font-weight: 800;
+  color: #ea580c;
+  margin-bottom: 12px;
+}
+
+.principleTitle {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.principleDesc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Team Section */
+.teamSection {
+  padding: 64px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.teamCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.avatarWrapper {
+  width: 100%;
+  height: 240px;
+  background-color: #e2e8f0;
+  overflow: hidden;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.avatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+.memberInfo {
+  padding: 20px;
+}
+
+.memberHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.memberName {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.memberRole {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ea580c;
+}
+
+.memberDept {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.linkedinLink {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0284c7;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.linkedinLink:hover {
+  background-color: #0284c7;
+  color: #ffffff;
+}
+
+.memberBio {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+/* Culture Section */
+.cultureSection {
+  padding: 64px 0 20px;
+}
+
+.cultureBox {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 44px 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cultureTextCol {
+  max-width: 900px;
+}
+
+.cultureTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ea580c;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.cultureTitle {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+.cultureLead {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.cultureBody {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.cultureList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.cultureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.cultureCheck {
+  color: #059669;
+  flex-shrink: 0;
+}
+
+.cultureActions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.careersBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #ea580c;
+  color: #ffffff !important;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.careersBtn:hover {
+  background-color: #c2410c;
+  color: #ffffff !important;
+}
+
+.contactBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.contactBtn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .methodologyGrid,
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+  .principlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .principlesGrid {
+    grid-template-columns: 1fr;
+  }
+  .cultureBox {
+    padding: 24px;
+  }
+}

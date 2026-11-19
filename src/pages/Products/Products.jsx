@@ -11,6 +11,8 @@ import {
   ArrowRight,
   Download,
   Mail,
+  Database,
+  ChevronRight,
 } from "lucide-react";
 import styles from "./Products.module.css";
 
@@ -83,6 +85,20 @@ const PORTFOLIO_SYSTEMS = [
     icon: Plane,
     image: "/assets/product5/Arial_section_img.png",
   },
+  {
+    id: "datamap",
+    tag: "SOFTWARE • ENTERPRISE RAIL SUITE",
+    name: "DataMAP™ Centralized Intelligence Platform",
+    desc: "Enterprise rail operations and condition monitoring software turning trackside sensor data into actionable maintenance decisions. Features unified Train Browser, Alarm Triage, and Longitudinal Vehicle Wear Analytics.",
+    specs: [
+      { label: "Architecture", value: "Open REST / MQTT" },
+      { label: "Processing", value: "< 2 min / Train" },
+      { label: "Ownership", value: "100% Client Owned" },
+    ],
+    path: "/datamap",
+    icon: Database,
+    image: "/assets/datamap/system-datamap.webp",
+  },
 ];
 
 const containerVariants = {
@@ -105,6 +121,15 @@ const itemVariants = {
 const ProductsOverview = () => {
   return (
     <div className={styles.container}>
+      {/* Breadcrumb Navigation */}
+      <div className={styles.breadcrumbBar}>
+        <div className={styles.breadcrumbs}>
+          <Link to="/" className={styles.crumbLink}>Home</Link>
+          <ChevronRight size={14} className={styles.crumbSep} />
+          <span className={styles.crumbCurrent}>Wayside Systems Portfolio</span>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className={styles.hero}>
         <div className={styles.heroGlow} />

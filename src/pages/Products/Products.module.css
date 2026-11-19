@@ -626,3 +626,44 @@
   max-width: 600px;
   margin: 30px auto;
 }
+
+/* ==========================================================================
+   BREADCRUMB NAVIGATION
+   ========================================================================== */
+.breadcrumbBar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 24px;
+  margin-top: 76px;
+  width: 100%;
+}
+
+.breadcrumbs {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.crumbLink {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.crumbLink:hover {
+  color: #ea580c;
+}
+
+.crumbSep {
+  color: #cbd5e1;
+}
+
+.crumbCurrent {
+  color: #0f172a;
+  font-weight: 600;
+}

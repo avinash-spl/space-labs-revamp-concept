@@ -17,6 +17,8 @@ import Product3 from "./pages/Products/Product3";
 import Product4 from "./pages/Products/Product4";
 import Product5 from "./pages/Products/Product5";
 import ContactForm from "./pages/Contact/contact";
+import DataMap from "./pages/DataMap/DataMap";
+import About from "./pages/About/About";
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -34,6 +36,8 @@ function App() {
         <Route path="/product3" element={<Product3 />} />
         <Route path="/product4" element={<Product4 />} />
         <Route path="/product5" element={<Product5 />} />
+        <Route path="/datamap" element={<DataMap />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactForm />} />
         <Route
           path="/login"

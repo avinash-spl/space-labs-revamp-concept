@@ -216,16 +216,35 @@
   position: absolute;
   top: calc(100% + 4px);
   left: -20px;
-  width: 440px;
+  width: 470px;
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.1);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: 
     0 20px 45px -10px rgba(15, 23, 42, 0.12),
     0 4px 12px rgba(15, 23, 42, 0.04);
-  padding: 10px;
+  padding: 12px;
   animation: dropIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1000;
+}
+
+.dropdownCategoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: rgba(15, 23, 42, 0.06);
+  margin: 8px 0;
 }
 
 /* Invisible hover bridge ensuring seamless mouse movement between trigger and dropdown */

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaTools } from "react-icons/fa";
-import { ArrowRight, ShieldCheck, Mail } from "lucide-react";
+import { ArrowRight, ShieldCheck, Mail, ChevronRight } from "lucide-react";
 import styles from "./Products.module.css";
 
 const Product3 = () => {
@@ -21,6 +21,17 @@ const Product3 = () => {
 
   return (
     <div className={styles.container}>
+      {/* Breadcrumb Navigation */}
+      <div className={styles.breadcrumbBar}>
+        <div className={styles.breadcrumbs}>
+          <Link to="/" className={styles.crumbLink}>Home</Link>
+          <ChevronRight size={14} className={styles.crumbSep} />
+          <Link to="/products" className={styles.crumbLink}>Systems</Link>
+          <ChevronRight size={14} className={styles.crumbSep} />
+          <span className={styles.crumbCurrent}>Machine Vision Inspection (MVIS)</span>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className={styles.hero}>
         <div

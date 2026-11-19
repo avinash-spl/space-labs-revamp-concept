@@ -18,6 +18,7 @@ const INQUIRY_TYPES = [
   "Machine Vision Inspection (MVIS)",
   "Coach Condition Monitoring (CCM)",
   "Aerial Railway Inspection",
+  "DataMAP™ Central Rail Analytics Platform",
   "Custom Railway R&D Project",
   "General Partnership / Inquiry",
 ];

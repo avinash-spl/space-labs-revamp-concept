@@ -14,10 +14,12 @@ import {
   ArrowRight,
   ShieldCheck,
   UserCheck,
-  Mail
+  Mail,
+  Database,
+  Layers
 } from "lucide-react";
 
-const PRODUCTS = [
+const HARDWARE_SYSTEMS = [
   {
     id: "product1",
     path: "/product1",
@@ -59,6 +61,17 @@ const PRODUCTS = [
     name: "Aerial Railway Inspection",
     desc: "Drone-based catenary & track surveying",
     icon: Plane,
+  },
+];
+
+const SOFTWARE_PLATFORM = [
+  {
+    id: "datamap",
+    path: "/datamap",
+    tag: "SOFTWARE",
+    name: "DataMAP™ Operations Platform",
+    desc: "Train browser, alarm triage & longitudinal wear trends",
+    icon: Database,
   },
 ];
 
@@ -175,10 +188,16 @@ const Navbar = ({ userExists }) => {
                 >
                   <div className={styles.dropdownHeader}>
                     <ShieldCheck size={14} className={styles.dropdownHeaderIcon} />
-                    <span>AUTONOMOUS RAILWAY INSPECTION SUITE</span>
+                    <span>AUTONOMOUS RAILWAY INSPECTION & SOFTWARE SUITE</span>
                   </div>
+
+                  <div className={styles.dropdownCategoryHeader}>
+                    <Layers size={12} />
+                    <span>Trackside Wayside Systems (Hardware)</span>
+                  </div>
+
                   <div className={styles.dropdownGrid}>
-                    {PRODUCTS.map((prod) => {
+                    {HARDWARE_SYSTEMS.map((prod) => {
                       const IconComponent = prod.icon;
                       return (
                         <Link
@@ -204,6 +223,38 @@ const Navbar = ({ userExists }) => {
                       );
                     })}
                   </div>
+
+                  <div className={styles.dropdownDivider} />
+
+                  <div className={styles.dropdownCategoryHeader}>
+                    <Database size={12} />
+                    <span>Centralized Rail Software Suite</span>
+                  </div>
+
+                  <div className={styles.dropdownGrid}>
+                    {SOFTWARE_PLATFORM.map((soft) => {
+                      const SoftIcon = soft.icon;
+                      return (
+                        <Link
+                          key={soft.id}
+                          to={soft.path}
+                          className={styles.dropdownItem}
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          <div className={styles.itemIconBox}>
+                            <SoftIcon size={18} />
+                          </div>
+                          <div className={styles.itemContent}>
+                            <div className={styles.itemHeading}>
+                              <span className={styles.itemTag}>{soft.tag}</span>
+                              <span className={styles.itemName}>{soft.name}</span>
+                            </div>
+                            <p className={styles.itemDesc}>{soft.desc}</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
                   <div className={styles.dropdownFooter}>
                     <Link to="/products" className={styles.viewAllLink}>
                       View Systems Overview & Specifications <ArrowRight size={13} />
@@ -215,17 +266,27 @@ const Navbar = ({ userExists }) => {
           </div>
 
           <Link
-            to="/#capabilities"
-            className={`${styles.navItem} ${location.hash === "#capabilities" ? styles.activeNavItem : ""}`}
+            to="/datamap"
+            className={`${styles.navItem} ${location.pathname === "/datamap" ? styles.activeNavItem : ""}`}
+            onClick={() => {
+              if (location.pathname === "/datamap") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
           >
-            CAPABILITIES
+            DATAMAP™
           </Link>
 
           <Link
-            to="/#team"
-            className={`${styles.navItem} ${location.hash === "#team" ? styles.activeNavItem : ""}`}
+            to="/about"
+            className={`${styles.navItem} ${location.pathname === "/about" ? styles.activeNavItem : ""}`}
+            onClick={() => {
+              if (location.pathname === "/about") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
           >
-            OUR TEAM
+            ABOUT
           </Link>
 
           <Link
@@ -290,8 +351,8 @@ const Navbar = ({ userExists }) => {
             className={styles.mobileDrawer}
           >
             <div className={styles.mobileMenu}>
-              <div className={styles.mobileSectionHeader}>RAILWAY SYSTEMS</div>
-              {PRODUCTS.map((prod) => (
+              <div className={styles.mobileSectionHeader}>TRACKSIDE WAYSIDE SYSTEMS</div>
+              {HARDWARE_SYSTEMS.map((prod) => (
                 <Link
                   key={prod.id}
                   to={prod.path}
@@ -308,22 +369,43 @@ const Navbar = ({ userExists }) => {
                 </Link>
               ))}
 
+              <div className={styles.mobileSectionHeader} style={{ marginTop: "12px" }}>RAIL SOFTWARE PLATFORM</div>
+              {SOFTWARE_PLATFORM.map((soft) => (
+                <Link
+                  key={soft.id}
+                  to={soft.path}
+                  className={styles.mobileSubItem}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div className={styles.mobileSubItemLeft}>
+                    <span className={styles.mobileTag}>{soft.tag}</span>
+                    <span>{soft.name}</span>
+                  </div>
+                </Link>
+              ))}
+
               <div className={styles.mobileDivider}></div>
 
               <Link
-                to="/#capabilities"
+                to="/datamap"
                 className={styles.mobileNavItem}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
               >
-                CAPABILITIES
+                DATAMAP™ PLATFORM
               </Link>
 
               <Link
-                to="/#team"
+                to="/about"
                 className={styles.mobileNavItem}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
               >
-                OUR TEAM
+                ABOUT STUDIO
               </Link>
 
               <Link

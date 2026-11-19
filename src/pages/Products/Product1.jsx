@@ -16,6 +16,7 @@ import {
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
+  ChevronRight,
 } from "lucide-react";
 import styles from "./Products.module.css";
 import ImageCarousel from "./Components/ImageCarousel/ImageCarousel";
@@ -105,6 +106,17 @@ const Product1 = () => {
 
   return (
     <div className={styles.container}>
+      {/* Breadcrumb Navigation */}
+      <div className={styles.breadcrumbBar}>
+        <div className={styles.breadcrumbs}>
+          <Link to="/" className={styles.crumbLink}>Home</Link>
+          <ChevronRight size={14} className={styles.crumbSep} />
+          <Link to="/products" className={styles.crumbLink}>Systems</Link>
+          <ChevronRight size={14} className={styles.crumbSep} />
+          <span className={styles.crumbCurrent}>Automatic Wheel Profile System (AWPMS)</span>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className={styles.hero}>
         <div
